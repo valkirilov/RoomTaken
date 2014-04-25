@@ -2,12 +2,14 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('myApp', [
+angular.module('roomTaken', [
   'ngRoute',
-  'myApp.filters',
-  'myApp.services',
-  'myApp.directives',
-  'myApp.controllers'
+  'roomTaken.filters',
+  'roomTaken.services',
+  'roomTaken.directives',
+  'roomTaken.controllers',
+  'gettext',
+  'restangular'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/view1', {templateUrl: 'partials/partial1.html', controller: 'MyCtrl1'});
