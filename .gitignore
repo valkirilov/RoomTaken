@@ -1,0 +1,16 @@
+*.gz
+*.sql
+*.mysql
+*.zip
+*.swp
+*._*
+*.py[oc]
+local_settings.py
+*.mwb.bak
+dev_c.fcgi
+codebase/flup/*
+/media/
+.project
+.pydevproject
+.python-version
+Makefile
