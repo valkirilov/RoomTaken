@@ -28,3 +28,66 @@
   content: "";
   padding: 0;
 }
+
+
+
+
+.room {
+    width: 280px;
+    background: #f7f7f7;
+    
+    margin: 30px 10px;
+    
+    
+    color: #666666;
+    float: left;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+}
+.room .header {
+    min-width: 240px;
+    background: #eaeaea;
+    
+    color: #333333;
+}
+.room .header div {
+    
+    color: #333333;
+}
+.room .header .name {
+    float: left;
+    padding: 10px 20px;
+}
+.room .header .number {
+    background: #e3e3e3;
+    border-left: 1px solid #dbdbdb;
+    
+    padding: 10px 20px;
+    
+    float: right;
+    font-weight: bold;
+}
+.room .status {
+    height: 8px;
+}
+.room .status.true {
+    background: #ea4141;
+}
+.room .status.false {
+    background: #ead641;
+}
+.room .status.free {
+    background: #41ea68;
+}
+.room .content {
+    height: 208px;
+    padding: 10px;
+}
+.room .content span {
+    width: 80px;
+    min-width: 80px;
+    margin-right: 10px;
+    
+    display: block;
+    float: left;
+    font-weight: bold;
+}
