@@ -20,7 +20,28 @@
 <br />
 Results:
 <br />
-<div ng-repeat="room in shedule" class="room fx-fade-down">
-    {{ room.id }}: {{ room.name }} - {{ room.teacher }}<br />
-    from {{ room.fromDate }} - to {{ room.toDate }}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 center-block"  style="float: none; margin: auto; padding: 10px;">
+        <div ng-repeat="room in shedule" class="room fx-fade-up fx-easing-bounce fx-speed-800">
+
+            <div class="header">
+                <div class="name">[NAME]</div>
+                <div class="number">{{ room.room }}</div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="content">
+                <span class="text-right">Предмет:</span> Предет<br />
+                <span class="text-right">Лектор:</span> Лектор<br />
+                <br />
+                <span class="text-right">Дата:</span> дата <br />
+                <span class="text-right">От:</span> час<br />
+                <span class="text-right">Да:</span> час<br />
+            </div>
+            <div class="clearfix"></div>
+            <div class="status true"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
 </div>
