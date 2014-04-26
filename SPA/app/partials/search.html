@@ -23,23 +23,22 @@ Results:
 
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 center-block"  style="float: none; margin: auto; padding: 10px;">
-        <div ng-repeat="room in shedule" class="room fx-fade-up fx-easing-bounce fx-speed-800">
-
+        <div ng-repeat="room in schedule" class="room fx-fade-up fx-easing-bounce fx-speed-800">
             <div class="header">
-                <div class="name">[NAME]</div>
-                <div class="number">{{ room.room }}</div>
+                <div class="name">{{ room.room_id.name }}</div>
+                <div class="number">{{ room.room_id.number }}</div>
                 <div class="clearfix"></div>
             </div>
             <div class="content">
-                <span class="text-right">Предмет:</span> Предет<br />
-                <span class="text-right">Лектор:</span> Лектор<br />
+                <span class="text-right">Предмет:</span> {{ room.subject_id.short_name }}<br />
+                <span class="text-right">Лектор:</span> {{ room.teacher_id.name }}<br />
                 <br />
-                <span class="text-right">Дата:</span> дата <br />
-                <span class="text-right">От:</span> час<br />
-                <span class="text-right">Да:</span> час<br />
+                <span class="text-right">Дата:</span> {{ room.from_date | date : 'longDate' }} <br />
+                <span class="text-right">От:</span> {{ room.from_date  | date : 'shortTime' }}<br />
+                <span class="text-right">Да:</span> {{ room.to_date | date : 'shortTime' }}<br />
             </div>
             <div class="clearfix"></div>
-            <div class="status true"></div>
+            <div class="status {{ (room.is_full_time) ? true : false }}"></div>
         </div>
         <div class="clearfix"></div>
     </div>

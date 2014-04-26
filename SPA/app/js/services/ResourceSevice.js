@@ -7,8 +7,17 @@ function(Restangular, $http, constants) {
             
     };
     
-    var getSchedule = function() {
-        var promise = Restangular.allUrl('schedule/').getList();
+    var getSchedule = function(room, subject) {
+    
+        var url = 'schedule/?';
+        if(room){
+            url += "room="+room+"&";
+        }
+        if(subject){
+            url += "subject="+subject+"&";
+        }
+        
+        var promise = Restangular.allUrl(url).getList();
         return promise;
     };
     
