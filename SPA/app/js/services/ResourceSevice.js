@@ -8,19 +8,19 @@ function(Restangular, $http, constants) {
     };
     
     var getSchedule = function(room, subject) {
-    
-        var url = 'schedule/?';
+        var url = 'js/data/shedule.json?';
         if(room){
             url += "room="+room+"&";
         }
         if(subject){
             url += "subject="+subject+"&";
         }
-        
-        var promise = Restangular.allUrl(url).getList();
+
+        var promise = $http.get(url);
         return promise;
     };
     
-    this.getSchedule = getSchedule;
+    this.getSnippets = getSnippets;
+    this.getShedule = getShedule;
     
 }]);
