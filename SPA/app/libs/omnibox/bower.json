@@ -1,0 +1,28 @@
+{
+  "name": "omnibox",
+  "main": "omnibox.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/lizardnxt/omnibox",
+  "authors": [
+    "fritzvd <fritz.vandeventer@nelen-schuurmans.nl>",
+    "gijs <gijs.nijholt@nelen-schuurmans.nl>"
+  ],
+  "description": "Omnibox for lizard-nxt",
+  "keywords": [
+    "directive",
+    "angular"
+  ],
+  "license": "GPL v3",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bootstrap": "~3.0.0",
+    "angular": "~1.0.8"
+  }
+}
