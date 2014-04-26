@@ -1,0 +1,7 @@
+{ "rooms": [
+    { "id": "1", "number": "34", "name": "Room name 1", "capacity": "30" },
+    { "id": "2", "number": "231", "name": "Room name 2", "capacity": "50" },
+    { "id": "3", "number": "141", "name": "Room name 3", "capacity": "20" },
+    { "id": "4", "number": "121", "name": "Room name 4", "capacity": "10" },
+    { "id": "5", "number": "345", "name": "Room name 5", "capacity": "80" }
+]}

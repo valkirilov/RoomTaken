@@ -1,0 +1,37 @@
+{
+    "shedule": [
+        { 
+            "id": "1", 
+            "room": "3",
+            "teacher": "4",
+            "group": "group",
+            "subject": "subject",
+            
+            "fromDate": "Sat Apr 26 2014 11:00:00",
+            "toDate": "Sat Apr 26 2014 15:00:00",
+            "fullTime": "true"
+        },
+        { 
+            "id": "1", 
+            "room": "3",
+            "teacher": "4",
+            "group": "group",
+            "subject": "subject",
+            
+            "fromDate": "Sat Apr 26 2014 11:00:00",
+            "toDate": "Sat Apr 26 2014 15:00:00",
+            "fullTime": "true"
+        },
+        { 
+            "id": "1", 
+            "room": "3",
+            "teacher": "4",
+            "group": "group",
+            "subject": "subject",
+            
+            "fromDate": "Sat Apr 26 2014 11:00:00",
+            "toDate": "Sat Apr 26 2014 15:00:00",
+            "fullTime": "true"
+        }
+    ]
+}

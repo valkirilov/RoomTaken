@@ -1,4 +1,15 @@
-<input type="text" class="input" ng-model="search.text" />
+<br />
+<div class="row">
+  <div class="col-lg-6">
+    <div class="input-group">
+      <input type="text" class="form-control" ng-model="search.text" placeholder="Type your search">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+</div>
+
 <br />
 <input type="radio" ng-model="search.type" value="0" /> <span translate>Everything</span>
 <input type="radio" ng-model="search.type" value="1" /> <span translate>Teacher</span>
@@ -9,3 +20,7 @@
 <br />
 Results:
 <br />
+<div ng-repeat="room in shedule" class="room fx-fade-down">
+    {{ room.id }}: {{ room.name }} - {{ room.teacher }}<br />
+    from {{ room.fromDate }} - to {{ room.toDate }}
+</div>

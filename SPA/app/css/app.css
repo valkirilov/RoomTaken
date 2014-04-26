@@ -28,3 +28,13 @@
   content: "";
   padding: 0;
 }
+
+
+
+
+.room {
+    background: blue;
+    padding: 30px;
+    margin: 30px;
+    color: white;
+}

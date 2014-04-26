@@ -23,7 +23,10 @@ config(['$routeProvider', function($routeProvider) {
 
 angular.module('roomTaken').config(function($httpProvider) {
     //Enable cross domain calls
-      $httpProvider.defaults.useXDomain = true;
+    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    $httpProvider.defaults.useXDomain = true;
+    //$http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
+    $httpProvider.defaults.headers.common['X-CSRFToken'] = '{% csrf_value %}'
 
       //Remove the header used to identify ajax call  that would prevent CORS from working
       //delete $httpProvider.defaults.headers.common['X-Requested-With'];
