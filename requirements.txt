@@ -1,3 +1,9 @@
 MySQL-python==1.2.4
 Django==1.6.3
 djangorestframework
+south==0.8.3
+django-suit
+django-filter
+markdown
+pygments
+django-cors-headers
