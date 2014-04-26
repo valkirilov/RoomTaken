@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models.query_utils import Q
 from django.shortcuts import get_list_or_404
 from django.utils.translation import ugettext_lazy as _
+from datetime import datetime
 
 class Teachers(models.Model):
     name = models.CharField(_(u'Име'), max_length=64, null=False, blank=False)
@@ -105,16 +106,55 @@ class Schedule(models.Model):
         return _(u'%s' % self.pk)
     
     @classmethod
+    def get_room_subject_teacher(cls, get_request):
+        from api.serializers import ScheduleSerializer
+        
+        data = get_list_or_404(cls, Q(room_id__number__contains=get_request['room']) |  \
+                                    Q(room_id__name__contains=get_request['room']), \
+                                    (Q(subject_id__full_name__contains=get_request['subject']) |  \
+                                    Q(subject_id__short_name__contains=get_request['subject'])),
+                                    (Q(teacher_id__name__contains=get_request['teacher']) | \
+                                    Q(teacher_id__short__contains=get_request['teacher']))
+                               )
+        serializer = ScheduleSerializer(data, many=True)
+        return serializer.data
+    
+    @classmethod
+    def get_subject_teacher(cls, get_request):
+        from api.serializers import ScheduleSerializer
+        
+        data = get_list_or_404(cls,(Q(subject_id__full_name__contains=get_request['subject']) |  \
+                                    Q(subject_id__short_name__contains=get_request['subject'])),
+                                    (Q(teacher_id__name__contains=get_request['teacher']) | \
+                                    Q(teacher_id__short__contains=get_request['teacher']))
+                               )
+        serializer = ScheduleSerializer(data, many=True)
+        return serializer.data
+    
+    @classmethod
+    def get_room_teacher(cls, get_request):
+        from api.serializers import ScheduleSerializer
+        
+        data = get_list_or_404(cls, Q(room_id__number__contains=get_request['room']) |  \
+                                    Q(room_id__name__contains=get_request['room']), \
+                                   (Q(teacher_id__name__contains=get_request['teacher']) | \
+                                    Q(teacher_id__short__contains=get_request['teacher']))
+                               )
+        serializer = ScheduleSerializer(data, many=True)
+        return serializer.data
+    
+    @classmethod
     def get_only_room(cls, get_request):
         from api.serializers import ScheduleSerializer
+        
         data = get_list_or_404(cls, Q(room_id__number__contains=get_request['room']) | Q(room_id__name__contains=get_request['room']))
         serializer = ScheduleSerializer(data, many=True)
         return serializer.data
     
     @classmethod
-    def get_room_and_subject(cls, get_request):
+    def get_room_subject(cls, get_request):
         from api.serializers import ScheduleSerializer
-        print "Room and Sub"
+        
         data = get_list_or_404(cls, Q(room_id__number__contains=get_request['room']) |  \
                                          Q(room_id__name__contains=get_request['room']), \
                                         (Q(subject_id__full_name__contains=get_request['subject']) |  \
@@ -126,6 +166,32 @@ class Schedule(models.Model):
     @classmethod
     def get_only_subject(cls, get_request):
         from api.serializers import ScheduleSerializer
+        
         data = get_list_or_404(cls, Q(subject_id__full_name__contains=get_request['subject']) | Q(subject_id__short_name__contains=get_request['subject']))
         serializer = ScheduleSerializer(data, many=True)
+        return serializer.data
+    
+    @classmethod
+    def get_only_teacher(cls, get_request):
+        from api.serializers import ScheduleSerializer
+        
+        data = get_list_or_404(cls, Q(teacher_id__name__contains=get_request['teacher']) | Q(teacher_id__short__contains=get_request['teacher']))
+        serializer = ScheduleSerializer(data, many=True)
+        return serializer.data
+    
+    @classmethod
+    def get_free_rooms_from_to_date(cls, get_request):
+        from api.serializers import RoomsSerializer
+
+        from_date = datetime.strptime(get_request['from_date'], "%Y-%m-%d %H:%M:%S")
+        to_date = datetime.strptime(get_request['to_date'], "%Y-%m-%d %H:%M:%S")
+        
+        get_all_busy_room = get_list_or_404(cls, from_date__gte=from_date, to_date__lte=to_date)
+        
+        day_filter = Q()
+        for x in get_all_busy_room:
+            day_filter = day_filter & ~Q(id=(x.room_id).id)
+        
+        objects = get_list_or_404(Rooms, day_filter)
+        serializer = RoomsSerializer(objects, many=True)
         return serializer.data
