@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from django.db.models.query_utils import Q
+from django.shortcuts import get_list_or_404
 from django.utils.translation import ugettext_lazy as _
 
 class Teachers(models.Model):
@@ -98,3 +100,32 @@ class Schedule(models.Model):
     
     created = models.DateTimeField(blank=False, null=False, editable=False, auto_now_add=True, verbose_name=_(u'добавена'))
     updated = models.DateTimeField(blank=False, null=False, editable=False, auto_now=True, verbose_name=_(u'последна промяна'))
+    
+    def __unicode__(self):
+        return _(u'%s' % self.pk)
+    
+    @classmethod
+    def get_only_room(cls, get_request):
+        from api.serializers import ScheduleSerializer
+        data = get_list_or_404(cls, Q(room_id__number__contains=get_request['room']) | Q(room_id__name__contains=get_request['room']))
+        serializer = ScheduleSerializer(data, many=True)
+        return serializer.data
+    
+    @classmethod
+    def get_room_and_subject(cls, get_request):
+        from api.serializers import ScheduleSerializer
+        print "Room and Sub"
+        data = get_list_or_404(cls, Q(room_id__number__contains=get_request['room']) |  \
+                                         Q(room_id__name__contains=get_request['room']), \
+                                        (Q(subject_id__full_name__contains=get_request['subject']) |  \
+                                         Q(subject_id__short_name__contains=get_request['subject']))
+                               )
+        serializer = ScheduleSerializer(data, many=True)
+        return serializer.data
+    
+    @classmethod
+    def get_only_subject(cls, get_request):
+        from api.serializers import ScheduleSerializer
+        data = get_list_or_404(cls, Q(subject_id__full_name__contains=get_request['subject']) | Q(subject_id__short_name__contains=get_request['subject']))
+        serializer = ScheduleSerializer(data, many=True)
+        return serializer.data

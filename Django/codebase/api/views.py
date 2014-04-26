@@ -1,15 +1,12 @@
-from api.models import Teachers
-from api.models import Schedule
-from api.serializers import TeachersSerializer
-from api.serializers import ScheduleSerializer
-from django.core import serializers
-
-from django.http import Http404
-
-from rest_framework.views import APIView
+from api.models import Schedule, Teachers
+from api.serializers import ScheduleSerializer, TeachersSerializer
+from django.db.models import Q
+from django.shortcuts import get_object_or_404, get_list_or_404
+from rest_framework import permissions, status
 from rest_framework.response import Response
-from rest_framework import status
-from rest_framework import permissions
+from rest_framework.views import APIView
+
+
 
 class TeachersList(APIView):
     """
@@ -37,13 +34,23 @@ class ScheduleList(APIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     
     def get(self, request, format=None):
-        print request.GET
-        schedule = Schedule.objects.all()
-        serializer = ScheduleSerializer(schedule, many=True)
-        return Response(serializer.data)
+        schedule = self.get_some_data(request.GET)
+        return Response(schedule.data)
     
-    def get_some_data(self):
-        pass
+    def get_some_data(self, get_request):
+        if 'subject' in get_request and 'room' in get_request:
+            return Response(Schedule.get_room_and_subject(get_request))
+        
+        elif 'room' in get_request:
+            return Response(Schedule.get_only_room(get_request))
+        
+        elif 'subject' in get_request:
+            return Response(Schedule.get_only_subject(get_request))
+        
+        else:
+            data = Schedule.objects.all()
+            serializer = ScheduleSerializer(data, many=True)
+            return Response(serializer.data)
 
     def post(self, request, format=None):
         serializer = ScheduleSerializer(data=request.DATA)
