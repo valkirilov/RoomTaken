@@ -1,36 +1,40 @@
 from django.forms import widgets
 from rest_framework import serializers
-from api.models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES
+from api.models import Teachers, Groups, Rooms, Schedule, Spiciality, Subjects
 
 
-class SnippetSerializer(serializers.Serializer):
-    pk = serializers.Field()  # Note: `Field` is an untyped read-only field.
-    title = serializers.CharField(required=False,
-                                  max_length=100)
-    code = serializers.CharField(widget=widgets.Textarea,
-                                 max_length=100000)
-    linenos = serializers.BooleanField(required=False)
-    language = serializers.ChoiceField(choices=LANGUAGE_CHOICES,
-                                       default='python')
-    style = serializers.ChoiceField(choices=STYLE_CHOICES,
-                                    default='friendly')
-
-    def restore_object(self, attrs, instance=None):
-        """
-        Create or update a new snippet instance, given a dictionary
-        of deserialized field values.
-
-        Note that if we don't define this method, then deserializing
-        data will simply return a dictionary of items.
-        """
-        if instance:
-            # Update existing instance
-            instance.title = attrs.get('title', instance.title)
-            instance.code = attrs.get('code', instance.code)
-            instance.linenos = attrs.get('linenos', instance.linenos)
-            instance.language = attrs.get('language', instance.language)
-            instance.style = attrs.get('style', instance.style)
-            return instance
-
-        # Create new instance
-        return Snippet(**attrs)
+class TeachersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Teachers
+        fields = ('id', 'name', 'degree', 'short')
+        depth = 2
+        
+class SubjectsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subjects
+        fields = ('full_name', 'short_name')
+        depth = 2
+        
+class SpicialitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Spiciality
+        fields = ('full_name', 'short_name')
+        depth = 2
+        
+class GroupsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Groups
+        fields = ('spec_id', 'number', 'course')
+        depth = 2
+        
+class RoomsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rooms
+        fields = ('seats', 'number', 'is_computer_room')
+        depth = 2
+        
+class ScheduleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Schedule
+        fields = ('room_id', 'teacher_id', 'subject_id', 'group_id', 'from_date', 'to_date', 'is_full_time')
+        depth = 2
