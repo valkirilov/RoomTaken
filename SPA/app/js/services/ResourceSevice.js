@@ -7,28 +7,8 @@ function(Restangular, $http, constants) {
             
     };
     
-    var getSnippets = function() {
-        
-        $http.get(constants.serverAddress);
-        
-        //var promise = $http.get('js/data/snippets.json');
-        var promise = $http.get(constants.serverAddress+'api/snippets/');
-//        var promise = $http({method: "GET",
-//                           url: constants.serverAddress+"api/snippets/?format=json",
-//                             withCredentials: true,
-//                           headers:{
-//                'Access-Control-Allow-Origin': '*',
-//                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-//                'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With',
-//                'X-Random-Shit':'123123123'
-//            }});
-        //var promise = Restangular.allUrl('snippets/').getList();
-        return promise;
-        
-    };
-    
     var getSchedule = function(room, subject) {
-        var url = 'js/data/shedule.json?';
+        var url = 'schedule/?';
         if(room){
             url += "room="+room+"&";
         }
@@ -36,11 +16,10 @@ function(Restangular, $http, constants) {
             url += "subject="+subject+"&";
         }
 
-        var promise = $http.get(url);
+        var promise = Restangular.allUrl(url).getList();
         return promise;
     };
     
-    this.getSnippets = getSnippets;
-    this.getShedule = getShedule;
+    this.getSchedule = getSchedule;
     
 }]);

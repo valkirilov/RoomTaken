@@ -19,11 +19,9 @@ angular.module('roomTaken.controllers', [])
     
     $scope.init = function() {
         
-        console.log(ResourceService);
         
         ResourceService.getSchedule().then(function(success) {
-            console.log(success);
-            $scope.shedule = success.data;
+            $scope.schedule = success;
         }, function(error) {
             console.log(error);
         });
