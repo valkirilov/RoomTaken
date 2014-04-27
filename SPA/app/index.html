@@ -99,10 +99,10 @@
                 </ul>
                 </div>
                 <div class="row text-center" id="radio">
-                    <input type="radio" id="type-free" class="active" name="search-type" ng-model="search.type"  
-                           value="schedule" selected="selected" /> 
+                    <input type="radio" id="type-schedule" class="active" name="search-type" ng-model="search.type"  
+                           value="schedule" ng-change="radioChanged()" selected="selected" /> 
                     <label for="type-schedule" class="radio" translate>Разписание на зали</label>
-                    <input type="radio" id="type-free" name="search-type" ng-model="search.type" value="free" /> 
+                    <input type="radio" id="type-free" name="search-type" ng-change="radioChanged()" ng-model="search.type" value="free" /> 
                     <label for="type-free" translate>Свободни зали</label>
 				</div>
 				

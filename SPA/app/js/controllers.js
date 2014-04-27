@@ -243,6 +243,11 @@ angular.module('roomTaken.controllers', [])
         
     };
 
+                            
+    $rootScope.radioChanged = function() {
+        $scope.schedule = null;
+    };
+
 
     
 
