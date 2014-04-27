@@ -34,7 +34,7 @@
 
 .room {
     width: 270px;
-    background: #f7f7f7;
+    background: #dddddd !important;
     
     margin: 30px 10px;
     
@@ -45,7 +45,7 @@
 }
 .room .header {
     min-width: 240px;
-    background: #eaeaea;
+	background-image: url(../img/low_contrast_linen.png);
     
     color: #333333;
 }
@@ -56,27 +56,35 @@
 .room .header .name {
     float: left;
     padding: 10px 20px;
+	color: #f0bf00 !important;
+	font-family: Verdana;
 }
 .room .header .number {
-    background: #e3e3e3;
+    background: #eec500;
     border-left: 1px solid #dbdbdb;
-    
+    color: #FFFFFF;
     padding: 10px 20px;
     
     float: right;
     font-weight: bold;
 }
+.room .header .number .free {
+	background: #27AE60 ;
+}
+.room .header .number .taken{
+	background: #c0392b;
+}
 .room .status {
     height: 8px;
 }
 .room .status.true {
-    background: #ea4141;
+    background: #c0392b;
 }
 .room .status.false {
-    background: #ead641;
+    background: #eec500;
 }
 .room .status.free {
-    background: #41ea68;
+    background: #27AE60;
 }
 .room .content {
     height: 208px;
