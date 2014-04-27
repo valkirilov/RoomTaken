@@ -1,8 +1,20 @@
 from django.conf.urls import patterns, include, url
-from api import views
-
 from django.contrib import admin
+from django.contrib.auth.models import User, Group
+
+from rest_framework import viewsets, routers
+
 admin.autodiscover()
+
+class UserViewSet(viewsets.ModelViewSet):
+    model = User
+
+class GroupViewSet(viewsets.ModelViewSet):
+    model = Group
+
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+router.register(r'groups', GroupViewSet)
 
 urlpatterns = patterns('',
     # Examples:
@@ -11,5 +23,4 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include('api.urls')),
-    url(r'^snippets/$', views.SnippetList.as_view()),
 )
