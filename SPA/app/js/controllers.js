@@ -7,7 +7,7 @@ angular.module('roomTaken.controllers', [])
                            function($rootScope, $scope, LanguageService, $location, $timeout, AuthService, $cookieStore, constants) {
     $rootScope.languageService = LanguageService;
     
-    $rootScope.message = { text: "", visible: false, type: '' };
+    $rootScope.message = { text: "", visible: false, type: 'schedule' };
         
     $scope.$on('$viewContentLoaded', function(){
         console.log('*** *** *** *** *** *** *** *** *** *** *** ***');
@@ -32,46 +32,48 @@ angular.module('roomTaken.controllers', [])
                 $location.path('/home');
             }, 1500);
         }
-        
-        $rootScope.handleMessage = function(info) {
-            $rootScope.message.text = info;
-            $rootScope.message.vissible = true;
-            
-            $rootScope.hideMessage();
-        };
-        
-        $rootScope.handleSuccess = function(success) {
-            $rootScope.message.text = success;
-            $rootScope.message.vissible = true;
-            $rootScope.message.type = 'success';
-            
-            $rootScope.hideMessage();
-        };
-        
-        $rootScope.handleError = function(error) {
-            $rootScope.message.text = error;
-            $rootScope.message.vissible = true;
-            $rootScope.message.type = 'error';
-
-            $rootScope.hideMessage();
-        };
-        
-        $rootScope.hideMessage = function() {
-            $timeout(function() {
-                $rootScope.message.vissible = false;
-                $rootScope.message.type = '';   
-            }, 2100);
-            
-        };
     });
+                               
+   $rootScope.handleMessage = function(info) {
+        $rootScope.message.text = info;
+        $rootScope.message.visible = true;
+
+        $rootScope.hideMessage();
+    };
+
+    $rootScope.handleSuccess = function(success) {
+        $rootScope.message.text = success;
+        $rootScope.message.visible = true;
+        $rootScope.message.type = 'success';
+
+        $rootScope.hideMessage();
+    };
+
+    $rootScope.handleError = function(error) {
+        
+        $rootScope.message.text = error;
+        $rootScope.message.visible = true;
+        $rootScope.message.type = 'error';
+
+        console.log($rootScope.message);
+        $rootScope.hideMessage();
+    };
+
+    $rootScope.hideMessage = function() {
+        $timeout(function() {
+            $rootScope.message.visible = false;
+            $rootScope.message.type = '';   
+        }, 2100);
+
+    };
 }])
 .controller('HomeCtrl', ['$scope', function($scope) {
 
 }])
-.controller('MyCtrl2', ['$rootScope', '$scope', 'ResourceService', 'AuthService', '$location', 
-                        function($rootScope, $scope, ResourceService, AuthService, $location) {
+.controller('MyCtrl2', ['$rootScope', '$scope', 'ResourceService', 'AuthService', '$location', 'constants', 
+                        function($rootScope, $scope, ResourceService, AuthService, $location, constants) {
     
-    $rootScope.search = { text: "", type: "" };
+    $rootScope.search = { text: "", type: "schedule" };
     
     $scope.schedule = null;
     $rootScope.keywords = {};
@@ -115,11 +117,11 @@ angular.module('roomTaken.controllers', [])
             console.log(suceess);
 
             //AuthService.save(suceess[1], suceess[0].data.token);
-            //$rootScope.handleSuccess(constants.loginSuccess);
+            $rootScope.handleSuccess(constants.loginSuccess);
             $scope.successfullLogin();
         }, function(error) {
             console.log(error);
-            $scope.errorMessage = error.data;
+            //$scope.errorMessage = error.data;
             $rootScope.handleError(constants.loginFail);
        });
     };
@@ -138,7 +140,7 @@ angular.module('roomTaken.controllers', [])
         $location.path('index');    
     };
     
-    $scope.removeKeyord = function(keyword) {
+    $rootScope.removeKeyord = function(keyword) {
         delete $rootScope.keywords[keyword.type];
         $scope.makeSearch();
     };
@@ -200,11 +202,14 @@ angular.module('roomTaken.controllers', [])
             console.log('Success');
             console.log(success);
             $scope.schedule = success;
+            $rootScope.handleSuccess("Нещо си");
 
         }, function(error) {
             console.log("Error");
             console.log(error);
 //                $scope.schedule = null;
+            $rootScope.handleError("Нещо си грешно");
+    
         });
     };
     
@@ -222,8 +227,10 @@ angular.module('roomTaken.controllers', [])
             console.log(success);
             $scope.schedule = null;
             // add message for saved room
+            $rootScope.handleSuccess("Стаята е резервирана успешно.");
         }, function(error) {
             console.log(error);
+            $rootScope.handleError("Настъпи грешка при резервирането.");
         });
         
     };
