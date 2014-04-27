@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 center-block"  style="float: none; margin: auto; padding: 10px;">
-        <div ng-repeat="room in schedule" class="room fx-fade-up fx-easing-bounce fx-speed-800">
+        <div ng-repeat="room in schedule | filterSeats : filter.seats" class="room fx-fade-up fx-easing-bounce fx-speed-800">
             <div class="header">
                 <div class="name">{{ room.name }}</div>
                 <div class="number">{{ room.number }}</div>
@@ -9,9 +9,7 @@
             <div class="content">
                 <br />
                 
-                <span class="text-right">Дата:</span> {{ room.from_date | date : 'longDate' }} <br />
-                <span class="text-right">От:</span> {{ room.from_date  | date : 'HH:mm'  }}<br />
-                <span class="text-right">До:</span> {{ room.to_date | date : 'HH:mm' }}<br />
+                <span class="text-right">Вместимост</span> {{ (filter.seats) ? filter.seats+' /' : ''  }} {{ room.seats }} места<br />
                 
                 <br />
                 <button type="button" class="btn btn-success center-block" ng-click="reserveRoom(room)">Запази стаята</button>

@@ -48,6 +48,7 @@
 <body>
     
     <!-- Put the code from the template here -->
+    <div class="" ng-controller="GlobalCtrl">
    
     <!--******************** NAVBAR ********************-->
     <div class="navbar-wrapper">
@@ -61,10 +62,12 @@
             <nav class="pull-right nav-collapse collapse">
               <ul id="menu-main" class="nav">
                 <li><a title="portfolio" href="index.html" class="alyzarin">Начало</a></li>
-                <li ng-init="user.isLogged = false" ng-show="user.isLogged==false"><a title="services" href="#/login" class="emerald">Вход</a></li>
-				<li ng-init="user.isLogged = true" ng-show="user.isLogged"><a title="contact" href="#contact" class="emerald">{{user.user}}</a></li>
-                <li><a title="team" href="#team" class="petermannriver">Стаи</a></li>
-                <li><a title="contact" href="#contact" class="sunflower">Контакти</a></li>				
+                
+                <li><a title="team" href="#team" class="emerald ">Стаи</a></li>
+                <li><a title="contact" href="#contact" class="petermannriver">Контакти</a></li>				
+                  
+                <li ng-show="!user.isLogged"><a title="Вход" href="#/login" class="sunflower">Вход</a></li>
+				<li ng-show="user.isLogged"><a title="Излез" href="#contact" class="sunflower">{{user.username}}</a></li>
               </ul>
             </nav>
           </div>
@@ -83,20 +86,35 @@
         <div class="container">
           <div class="row">
             <div class="span12">
-			<div class="searchbox">
-              <input type="text" name="your-email" placeholder="@Учител, #Предмет, *Стая" class="cform-text" size="40" title="your email">
-              <input type="submit" value="GO" class="cform-submit">
+                <div class="searchbox">
+                  <input type="text" ng-model="search.text" search-key-up="changeSearchInput()" 
+                         placeholder="@Учител, #Предмет, *Стая" class="cform-text">
+                  <input class="cform-submit" type="submit" value="GO" ng-click="changeSearchInput()" />
+                </div><!-- /input-group -->
+                
+                <ul>
+                    <li ng-repeat="keyword in keywords">{{ keyword.type }} {{ keyword.text }} <a ng-click="removeKeyord(keyword)">X</a></li>
+                </ul>
+                
+                <div class="row text-center">
+                    <input type="radio" id="type-free" class="active" name="search-type" ng-model="search.type"  
+                           value="schedule" selected="selected" /> 
+                    <label for="type-schedule" translate>Разписание на зали</label>
+                    <input type="radio" id="type-free" name="search-type" ng-model="search.type" value="free" /> 
+                    <label for="type-free" translate>Свободни зали</label>
+            </div>
 				
             </div>
-			</div>
           </div>
+        </div>
         </div>
       </header>
     </div>
 	<!--END TEMPLATE-->
-    <div class="" ng-controller="GlobalCtrl">
+    
 
       <div ng-view></div>
+      <div class="message {$ message.vissible $} {$ message.type $}">{$ message.text $}</div>
 
     </div><!-- /.container -->
     
