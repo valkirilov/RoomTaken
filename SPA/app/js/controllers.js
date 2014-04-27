@@ -210,13 +210,13 @@ angular.module('roomTaken.controllers', [])
             console.log('Success');
             console.log(success);
             $scope.schedule = success;
-            $rootScope.handleSuccess("Нещо си");
+            $rootScope.handleSuccess("Успешно търсене");
 
         }, function(error) {
             console.log("Error");
             console.log(error);
 //                $scope.schedule = null;
-            $rootScope.handleError("Нещо си грешно");
+            $rootScope.handleError("Няма резултати от вашето търсене.");
     
         });
     };

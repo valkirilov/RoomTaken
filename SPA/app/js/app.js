@@ -13,8 +13,7 @@ angular.module('roomTaken', [
   'gettext',
   'restangular',
   'ui.bootstrap',
-  //'fx.animations',
-//'omnibox'
+  //'fx.animations'
 ]).
 config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: 'HomeCtrl'});
