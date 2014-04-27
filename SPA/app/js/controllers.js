@@ -3,21 +3,88 @@
 /* Controllers */
 
 angular.module('roomTaken.controllers', [])
-.controller('GlobalCtrl', ['$rootScope', '$scope', 'LanguageService', function($rootScope, $scope, LanguageService) {
+.controller('GlobalCtrl', ['$rootScope', '$scope', 'LanguageService', '$location', '$timeout', 'AuthService', '$cookieStore', 'constants',
+                           function($rootScope, $scope, LanguageService, $location, $timeout, AuthService, $cookieStore, constants) {
     $rootScope.languageService = LanguageService;
     
-    
+    $rootScope.message = { text: "", visible: false, type: 'schedule' };
+        
+    $rootScope.$on('$viewContentLoaded', function(){
+        //console.log('*** *** *** *** *** *** *** *** *** *** *** ***');
+        //console.log('View is changed to ' + $location.path());
+        
+        AuthService.user = $cookieStore.get('user') || { isLogged: false };
+        $rootScope.user = AuthService.user;            
+
+        if ($location.path() === '/login' && $rootScope.user.isLogged) {
+            $location.path('dashboard');
+        }
+        else if ($location.path() === '/dashboard' && !$rootScope.user.isLogged) {            
+            $location.path('login');
+        }
+        else if ($location.path() === '/logout') {
+            // Logout and redirect to home
+            AuthService.logout();
+            $rootScope.user.isLogged = false;
+
+            //$rootScope.handleMessage(constants.logout);
+            $timeout(function() {
+                $location.path('/home');
+            }, 1500);
+        }
+    });
+                               
+    $rootScope.logout = function() {
+        AuthService.logout();
+        $rootScope.handleMessage('Излязохте успешно :(');
+        $timeout(function() {
+            $location.path('index')
+        }, 1000);
+    };
+                               
+   $rootScope.handleMessage = function(info) {
+        $rootScope.message.text = info;
+        $rootScope.message.visible = true;
+
+        $rootScope.hideMessage();
+    };
+
+    $rootScope.handleSuccess = function(success) {
+        $rootScope.message.text = success;
+        $rootScope.message.visible = true;
+        $rootScope.message.type = 'success';
+
+        $rootScope.hideMessage();
+    };
+
+    $rootScope.handleError = function(error) {
+        
+        $rootScope.message.text = error;
+        $rootScope.message.visible = true;
+        $rootScope.message.type = 'error';
+
+        console.log($rootScope.message);
+        $rootScope.hideMessage();
+    };
+
+    $rootScope.hideMessage = function() {
+        $timeout(function() {
+            $rootScope.message.visible = false;
+            $rootScope.message.type = '';   
+        }, 2100);
+
+    };
 }])
 .controller('HomeCtrl', ['$scope', function($scope) {
 
 }])
-.controller('MyCtrl2', ['$rootScope', '$scope', 'ResourceService', 'AuthService', '$location', 
-                        function($rootScope, $scope, ResourceService, AuthService, $location) {
+.controller('MyCtrl2', ['$rootScope', '$scope', 'ResourceService', 'AuthService', '$location', 'constants', 
+                        function($rootScope, $scope, ResourceService, AuthService, $location, constants) {
     
-    $scope.search = { text: "", type: "" };
+    $rootScope.search = { text: "", type: "schedule" };
     
     $scope.schedule = null;
-    $scope.keywords = {};
+    $rootScope.keywords = {};
     
     $scope.datepickers = {
         "isOpenedFromDate": false,
@@ -33,12 +100,13 @@ angular.module('roomTaken.controllers', [])
     
     $scope.init = function() {
         
-        
+        /*
         ResourceService.getSchedule().then(function(success) {
             $scope.schedule = success;
         }, function(error) {
             console.log(error);
         });
+        */
         
         
 //        ResourceService.getFreeRooms().then(function(success) {
@@ -57,11 +125,11 @@ angular.module('roomTaken.controllers', [])
             console.log(suceess);
 
             //AuthService.save(suceess[1], suceess[0].data.token);
-            //$rootScope.handleSuccess(constants.loginSuccess);
+            $rootScope.handleSuccess(constants.loginSuccess);
             $scope.successfullLogin();
         }, function(error) {
             console.log(error);
-            $scope.errorMessage = error.data;
+            //$scope.errorMessage = error.data;
             $rootScope.handleError(constants.loginFail);
        });
     };
@@ -80,8 +148,8 @@ angular.module('roomTaken.controllers', [])
         $location.path('index');    
     };
     
-    $scope.removeKeyord = function(keyword) {
-        delete $scope.keywords[keyword.type];
+    $rootScope.removeKeyord = function(keyword) {
+        delete $rootScope.keywords[keyword.type];
         $scope.makeSearch();
     };
     
@@ -99,23 +167,23 @@ angular.module('roomTaken.controllers', [])
         return toReturn;
     }
 
-    $scope.changeSearchInput = function() {
-        var text = $scope.search.text;
-        console.log($scope.search.text);
+    $rootScope.changeSearchInput = function() {
+        var text = $rootScope.search.text;
+        console.log($rootScope.search.text);
         var room, teacher, subject;
         if(text.length > 1){
-            console.log("searching...");
+            //console.log("searching...");
             //var room = new RegExp("\#(\S+)\s?",text);
             room = getTextStartWith(text, "*");
             subject = getTextStartWith(text, "#");
             teacher = getTextStartWith(text, "@");
             
             if (room !== '')
-                $scope.keywords['room'] = { type:'room', text: room };
+                $rootScope.keywords['room'] = { type:'room', text: room };
             if (subject !== '')
-                $scope.keywords['subject'] = { type:'subject', text: subject };
+                $rootScope.keywords['subject'] = { type:'subject', text: subject };
             if (teacher !== '')
-                $scope.keywords['teacher'] = { type:'teacher', text: teacher };
+                $rootScope.keywords['teacher'] = { type:'teacher', text: teacher };
 
             $scope.search.text = "";
             
@@ -125,8 +193,8 @@ angular.module('roomTaken.controllers', [])
     
     $scope.makeSearch = function() {
         var response;
-        console.log($scope.search.free);
-        if ($scope.search.type === 'free') {
+        console.log($rootScope.search.free);
+        if ($rootScope.search.type === 'free') {
             var keywords = {
                 "from_date": $scope.fromDate,
                 "to_date": $scope.toDate,
@@ -134,7 +202,7 @@ angular.module('roomTaken.controllers', [])
             console.log(keywords);
             response = ResourceService.getFreeRooms(keywords);
         }
-        else if ($scope.search.type === 'schedule') {
+        else if ($rootScope.search.type === 'schedule') {
             response = ResourceService.getSchedule($scope.keywords);
         }
         
@@ -142,11 +210,14 @@ angular.module('roomTaken.controllers', [])
             console.log('Success');
             console.log(success);
             $scope.schedule = success;
+            $rootScope.handleSuccess("Успешно търсене");
 
         }, function(error) {
             console.log("Error");
             console.log(error);
 //                $scope.schedule = null;
+            $rootScope.handleError("Няма резултати от вашето търсене.");
+    
         });
     };
     
@@ -164,8 +235,10 @@ angular.module('roomTaken.controllers', [])
             console.log(success);
             $scope.schedule = null;
             // add message for saved room
+            $rootScope.handleSuccess("Стаята е резервирана успешно.");
         }, function(error) {
             console.log(error);
+            $rootScope.handleError("Настъпи грешка при резервирането.");
         });
         
     };
@@ -178,11 +251,7 @@ angular.module('roomTaken.controllers', [])
 .controller('LogoutCtrl', ['$rootScope', '$scope', '$location', '$timeout', 'AuthService', 
                            function($rootScope, $scope, $location, $timeout, AuthService) {
     
-    $scope.logout = function() {
-        console.log('init');
-        AuthService.logout();
-        $timeout($location.path('index'), 1000);
-    };
+    
                                
     //$scope.init();
 

@@ -1,33 +1,13 @@
 <br />
 <div class="row omnibox">
   <div class="col-lg-6 center-block"  style="float: none;">
-    <div class="input-group">
-      <input type="text" class="form-control" ng-model="search.text" search-key-up="changeSearchInput()" placeholder="Type your search" />
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button" ng-click="changeSearchInput()">Go!</button>
-      </span>
-    </div><!-- /input-group -->
     
-    <ul>
-        <li ng-repeat="keyword in keywords">{{ keyword.type }} {{ keyword.text }} <a ng-click="removeKeyord(keyword)">X</a></li>
-    </ul>
+    
       
     <br />
-    <div class="row text-center">
-        <input type="radio" id="type-free" class="active" name="search-type" ng-model="search.type"  value="schedule" checked="checked" /> <label for="type-schedule" translate>Разписание на зали</label>
-        <input type="radio" id="type-free" name="search-type" ng-model="search.type" value="free" /> <label for="type-free" translate>Свободни зали</label>
-        
-        {{ search.type }}
-<!--
-        <input type="radio" id="type-everything" ng-model="search.type" value="0" /> <label for="type-everything" translate>Everything</label>
-        <input type="radio" id="type-room" ng-model="search.type" value="1" /> <label for="type-room" translate>Room</label>
-        <input type="radio" id="type-teacher" ng-model="search.type" value="2" /> <label for="type-teacher" translate>Teacher</label>
-        <input type="radio" id="type-group" ng-model="search.type" value="3" /> <label for="type-group" translate>Group</label>
--->
-        
-    </div>
       
     <div class="row" ng-show="search.type === 'free'">
+<!--
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">Филтрирай свободни стаи</h3>
@@ -97,11 +77,21 @@
                   </div>
               </div>
             </div>
+              
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label for="filterSeats" class="col-sm-6 pull-left">Брой места</label>
+                <div class="col-sm-6">
+                  <input type="text" class="form-control full-right" id="filterSeats" ng-model="filter.seats" placeholder="Брой">
+                </div>
+              </div>
+            </div>
             
           </div>
         </div>
     
     </div>
+-->
         
   </div><!-- /.col-lg-6 -->
 </div>
