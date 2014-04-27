@@ -22,8 +22,10 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 class Teachers(models.Model):
     name = models.CharField(_(u'Име'), max_length=64, null=False, blank=False)
-    degree = models.CharField(_(u'Титла'), max_length=16, null=False, blank=False)
+    degree = models.CharField(_(u'Титла'), max_length=90, null=False, blank=False)
     short = models.CharField(_(u'Инициали'), max_length=5, null=False, blank=False)
+    email = models.EmailField(_(u'Имейл'))
+    department = models.CharField(_(u'Отдел'), max_length=10)
     
     created = models.DateTimeField(blank=False, null=False, editable=False, auto_now_add=True, verbose_name=_(u'добавена'))
     updated = models.DateTimeField(blank=False, null=False, editable=False, auto_now=True, verbose_name=_(u'последна промяна'))
@@ -83,10 +85,10 @@ class Groups(models.Model):
         return _(u'%s' % self.number)
         
 class Rooms(models.Model):
-    name = models.CharField(_(u'Име на стая'), max_length=32)
+    name = models.CharField(_(u'Име на стая'), max_length=32, blank=True, null=True)
     floor = models.CharField(_(u'Етаж'), max_length=7)
     seats = models.IntegerField(_(u'Брой места'))
-    number = models.CharField(_(u'Номер на стая'), max_length=4)
+    number = models.CharField(_(u'Номер на стая'), unique=True, max_length=4)
     
     is_computer_room = models.BooleanField()
     
@@ -105,6 +107,7 @@ class Schedule(models.Model):
     teacher_id = models.ForeignKey(u'Teachers', null=True, blank=True)
     subject_id = models.ForeignKey(u'Subjects', null=True, blank=True)
     group_id = models.ForeignKey(u'Groups', null=True, blank=True)
+    speciality_id = models.ForeignKey(u'Spiciality', null=True, blank=True)
     from_date = models.DateTimeField(_(u'От дата'))
     to_date = models.DateTimeField(_(u'До дата'))
     is_full_time = models.BooleanField(default=False)
@@ -123,12 +126,12 @@ class Schedule(models.Model):
     def get_room_subject_teacher(cls, get_request):
         from api.serializers import ScheduleSerializer
         
-        data = get_list_or_404(cls, Q(room_id__number__contains=get_request['room']) |  \
-                                    Q(room_id__name__contains=get_request['room']), \
-                                    (Q(subject_id__full_name__contains=get_request['subject']) |  \
-                                    Q(subject_id__short_name__contains=get_request['subject'])),
-                                    (Q(teacher_id__name__contains=get_request['teacher']) | \
-                                    Q(teacher_id__short__contains=get_request['teacher']))
+        data = get_list_or_404(cls, Q(room_id__number__icontains=get_request['room']) |  \
+                                    Q(room_id__name__icontains=get_request['room']), \
+                                    (Q(subject_id__full_name__icontains=get_request['subject']) |  \
+                                    Q(subject_id__short_name__icontains=get_request['subject'])),
+                                    (Q(teacher_id__name__icontains=get_request['teacher']) | \
+                                    Q(teacher_id__short__icontains=get_request['teacher']))
                                )
         serializer = ScheduleSerializer(data, many=True)
         return serializer.data
@@ -137,10 +140,10 @@ class Schedule(models.Model):
     def get_subject_teacher(cls, get_request):
         from api.serializers import ScheduleSerializer
         
-        data = get_list_or_404(cls,(Q(subject_id__full_name__contains=get_request['subject']) |  \
-                                    Q(subject_id__short_name__contains=get_request['subject'])),
-                                    (Q(teacher_id__name__contains=get_request['teacher']) | \
-                                    Q(teacher_id__short__contains=get_request['teacher']))
+        data = get_list_or_404(cls,(Q(subject_id__full_name__icontains=get_request['subject']) |  \
+                                    Q(subject_id__short_name__icontains=get_request['subject'])),
+                                    (Q(teacher_id__name__icontains=get_request['teacher']) | \
+                                    Q(teacher_id__short__icontains=get_request['teacher']))
                                )
         serializer = ScheduleSerializer(data, many=True)
         return serializer.data
@@ -149,10 +152,10 @@ class Schedule(models.Model):
     def get_room_teacher(cls, get_request):
         from api.serializers import ScheduleSerializer
         
-        data = get_list_or_404(cls, Q(room_id__number__contains=get_request['room']) |  \
-                                    Q(room_id__name__contains=get_request['room']), \
-                                   (Q(teacher_id__name__contains=get_request['teacher']) | \
-                                    Q(teacher_id__short__contains=get_request['teacher']))
+        data = get_list_or_404(cls, Q(room_id__number__icontains=get_request['room']) |  \
+                                    Q(room_id__name__icontains=get_request['room']), \
+                                   (Q(teacher_id__name__icontains=get_request['teacher']) | \
+                                    Q(teacher_id__short__icontains=get_request['teacher']))
                                )
         serializer = ScheduleSerializer(data, many=True)
         return serializer.data
@@ -161,7 +164,7 @@ class Schedule(models.Model):
     def get_only_room(cls, get_request):
         from api.serializers import ScheduleSerializer
         
-        data = get_list_or_404(cls, Q(room_id__number__contains=get_request['room']) | Q(room_id__name__contains=get_request['room']))
+        data = get_list_or_404(cls, Q(room_id__number__icontains=get_request['room']) | Q(room_id__name__icontains=get_request['room']))
         serializer = ScheduleSerializer(data, many=True)
         return serializer.data
     
@@ -169,10 +172,10 @@ class Schedule(models.Model):
     def get_room_subject(cls, get_request):
         from api.serializers import ScheduleSerializer
         
-        data = get_list_or_404(cls, Q(room_id__number__contains=get_request['room']) |  \
-                                         Q(room_id__name__contains=get_request['room']), \
-                                        (Q(subject_id__full_name__contains=get_request['subject']) |  \
-                                         Q(subject_id__short_name__contains=get_request['subject']))
+        data = get_list_or_404(cls, Q(room_id__number__icontains=get_request['room']) |  \
+                                         Q(room_id__name__icontains=get_request['room']), \
+                                        (Q(subject_id__full_name__icontains=get_request['subject']) |  \
+                                         Q(subject_id__short_name__icontains=get_request['subject']))
                                )
         serializer = ScheduleSerializer(data, many=True)
         return serializer.data
@@ -181,7 +184,7 @@ class Schedule(models.Model):
     def get_only_subject(cls, get_request):
         from api.serializers import ScheduleSerializer
         
-        data = get_list_or_404(cls, Q(subject_id__full_name__contains=get_request['subject']) | Q(subject_id__short_name__contains=get_request['subject']))
+        data = get_list_or_404(cls, Q(subject_id__full_name__icontains=get_request['subject']) | Q(subject_id__short_name__icontains=get_request['subject']) | Q(subject_id__short_name__icontains=get_request['subject']))
         serializer = ScheduleSerializer(data, many=True)
         return serializer.data
     
@@ -189,7 +192,7 @@ class Schedule(models.Model):
     def get_only_teacher(cls, get_request):
         from api.serializers import ScheduleSerializer
         
-        data = get_list_or_404(cls, Q(teacher_id__name__contains=get_request['teacher']) | Q(teacher_id__short__contains=get_request['teacher']))
+        data = get_list_or_404(cls, Q(teacher_id__name__icontains=get_request['teacher']) | Q(teacher_id__short__icontains=get_request['teacher']))
         serializer = ScheduleSerializer(data, many=True)
         return serializer.data
     
@@ -234,3 +237,33 @@ class Schedule(models.Model):
             return (int(round(seats - (seats*(5.0/100)))), int(round(seats + (seats*(5.0/100)))))
         elif seats >= 1000:
             return (int(round(seats - (seats*(3.0/100)))), int(round(seats + (seats*(3.0/100)))))
+        
+    @classmethod
+    def get_r_sp_t_su(cls, get_request):
+        from api.serializers import ScheduleSerializer
+        
+        data = get_list_or_404(cls, Q(speciality_id__full_name__icontains=get_request['speciality']) |  \
+                                    Q(speciality_id__short_name__icontains=get_request['speciality']),
+                                    (Q(room_id__number__icontains=get_request['room']) |  \
+                                    Q(room_id__name__icontains=get_request['room'])), \
+                                    (Q(subject_id__full_name__icontains=get_request['subject']) |  \
+                                    Q(subject_id__short_name__icontains=get_request['subject'])),
+                                    (Q(teacher_id__name__icontains=get_request['teacher']) | \
+                                    Q(teacher_id__short__icontains=get_request['teacher']))
+                               )
+        serializer = ScheduleSerializer(data, many=True)
+        return serializer.data
+    
+    @classmethod
+    def get_speciality(cls, get_request):
+        from api.serializers import ScheduleSerializer
+        print get_request['speciality']
+        a = cls.objects.filter(Q(speciality_id__full_name=get_request['speciality']) |  \
+                               Q(speciality_id__short_name=get_request['speciality']))
+        
+        print unicode(a.query)
+        
+        data = get_list_or_404(cls, Q(speciality_id__full_name__icontains=get_request['speciality']) |  \
+                                    Q(speciality_id__short_name__icontains=get_request['speciality']))
+        serializer = ScheduleSerializer(data, many=True)
+        return serializer.data
