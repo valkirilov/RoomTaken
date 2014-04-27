@@ -6,7 +6,10 @@ urlpatterns = patterns('',
     url(r'^teachers/$', views.TeachersList.as_view()),
     url(r'^schedule/$', views.ScheduleList.as_view()),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^free-rooms/', views.FreeRooms.as_view())
+    url(r'^free-rooms/', views.FreeRooms.as_view()),
+    
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api-token-auth/', 'rest_framework.authtoken.views.obtain_auth_token'),
 )
 
 urlpatterns = format_suffix_patterns(urlpatterns)

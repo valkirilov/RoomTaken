@@ -30,11 +30,23 @@ class GroupsSerializer(serializers.ModelSerializer):
 class RoomsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rooms
-        fields = ('seats', 'number', 'is_computer_room')
+        fields = ('id', 'name', 'seats', 'number', 'is_computer_room')
         depth = 2
         
 class ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
-        fields = ('room_id', 'teacher_id', 'subject_id', 'group_id', 'from_date', 'to_date', 'is_full_time')
+        fields = ('room_id', 'teacher_id', 'subject_id', 'group_id', 'is_full_time', 'from_date', 'to_date')
         depth = 2
+     
+    def is_valid(self, *args, **kwargs):
+        self.init_data['room_id'] = self.get_or_not_room(self.init_data['room_id'])
+        super(ScheduleSerializer, self).is_valid(*args, **kwargs)
+        
+    def get_or_not_room(self, room_id):
+        return Rooms.objects.get(id=room_id)
+    
+class ScheduleSerializerIn(serializers.ModelSerializer):
+    class Meta:
+        model = Schedule
+        fields = ('room_id', 'from_date', 'to_date')

@@ -1,0 +1,1 @@
+[{"pk": 1, "model": "api.groups", "fields": {"course": 1, "updated": "2014-04-26T12:03:16Z", "spec_id": 3, "number": 2, "created": "2014-04-26T12:03:16Z"}}, {"pk": 2, "model": "api.groups", "fields": {"course": 2, "updated": "2014-04-26T12:03:30Z", "spec_id": 2, "number": 1, "created": "2014-04-26T12:03:30Z"}}]
