@@ -36,7 +36,7 @@ class RoomsSerializer(serializers.ModelSerializer):
 class ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
-        fields = ('room_id', 'teacher_id', 'subject_id', 'group_id', 'is_full_time', 'from_date', 'to_date')
+        fields = ('room_id', 'teacher_id', 'subject_id', 'group_id', 'is_full_time', 'speciality_id', 'from_date', 'to_date')
         depth = 2
      
     def is_valid(self, *args, **kwargs):
