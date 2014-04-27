@@ -22,12 +22,12 @@ function(Restangular, $http, constants, $filter) {
         
         var dateNow = new Date();
         var dateAfter = new Date();
-        var dateAfter = dateAfter.setHours(dateNow.getHours() + 1);
+        var dateAfter = dateAfter.setHours(dateNow.getHours() + 3);
         
         console.log(keywords);
         
         keywords['from_date'] = keywords['from_date'] || dateNow;
-        keywords['to_date'] = keywords['to_date'] || dateAfter;
+        keywords['to_date'] = dateAfter;
 
         var dateFormat = 'yyyy-MM-d HH:mm:ss';
         keywords = {
@@ -56,6 +56,8 @@ function(Restangular, $http, constants, $filter) {
         var args = filterDates(input);
         console.log(args);
         
+        
+        
         var newSchedule = {
             "room_id": input['room'].id,
             "from_date": args['from_date'].text,
@@ -82,11 +84,15 @@ function(Restangular, $http, constants, $filter) {
     var filterDates = function(keywords) {
         var dateNow = new Date();
         var dateAfter = new Date();
-        var dateAfter = dateAfter.setHours(dateNow.getHours() + 1);
+        var dateAfter = dateAfter.setHours(dateNow.getHours() + 3);
+        console.log("gsadgs");
+        console.log(dateAfter);
         
         keywords['from_date'] = keywords['from_date'] || dateNow;
-        keywords['to_date'] = keywords['to_date'] || dateAfter;
+        keywords['to_date'] = dateAfter;
 
+        //args['to_date'] = args['to_date'].setHours(args['to_date'].getHours() + 1);
+        
         var dateFormat = 'yyyy-MM-d HH:mm:ss';
         keywords = {
             "from_date": {

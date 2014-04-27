@@ -50,6 +50,10 @@ function($http, $cookieStore, Restangular, $q, constants) {
        user.token = null;
        user.isLogged = false;
        
+       delete $http.defaults.headers.common.Authorization; 
+       Restangular.setDefaultHeaders({Authorization: ""});
+       delete $http.defaults.headers.common['X-Requested-With'];
+       
        // And the remove it from the cookies
        $cookieStore.put('user', user);
        //return user;

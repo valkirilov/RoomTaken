@@ -13,6 +13,8 @@ angular.module('roomTaken.controllers', [])
         //console.log('*** *** *** *** *** *** *** *** *** *** *** ***');
         //console.log('View is changed to ' + $location.path());
         
+        console.log(AuthService.user);
+        
         AuthService.user = $cookieStore.get('user') || { isLogged: false };
         $rootScope.user = AuthService.user;            
 
