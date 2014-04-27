@@ -91,18 +91,18 @@
                          placeholder="@Учител, #Предмет, *Стая" class="cform-text">
                   <input class="cform-submit" type="submit" value="GO" ng-click="changeSearchInput()" />
                 </div><!-- /input-group -->
-                
-                <ul>
-                    <li ng-repeat="keyword in keywords">{{ keyword.type }} {{ keyword.text }} <a ng-click="removeKeyord(keyword)">X</a></li>
+				<div class="center-block">
+                <ul id="autocorrect" class="searchbox">
+                    <li ng-repeat="keyword in keywords">{{ keyword.type }} {{ keyword.text }} <a ng-click="removeKeyord(keyword)" class="close"> &times;</a></li>
                 </ul>
-                
-                <div class="row text-center">
+                </div>
+                <div class="row text-center" id="radio">
                     <input type="radio" id="type-free" class="active" name="search-type" ng-model="search.type"  
                            value="schedule" selected="selected" /> 
-                    <label for="type-schedule" translate>Разписание на зали</label>
+                    <label for="type-schedule" class="radio" translate>Разписание на зали</label>
                     <input type="radio" id="type-free" name="search-type" ng-model="search.type" value="free" /> 
                     <label for="type-free" translate>Свободни зали</label>
-            </div>
+				</div>
 				
             </div>
           </div>
