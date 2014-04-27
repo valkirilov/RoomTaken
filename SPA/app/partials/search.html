@@ -1,24 +1,89 @@
 <br />
-<div class="row">
-  <div class="col-lg-6">
+<div class="row omnibox">
+  <div class="col-lg-6 center-block"  style="float: none;">
     <div class="input-group">
-      <input type="text" class="form-control" ng-model="search.text" placeholder="Type your search">
+      <input type="text" class="form-control" ng-model="search.text" search-key-up="changeSearchInput()" placeholder="Type your search" />
       <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Go!</button>
+        <button class="btn btn-default" type="button" ng-click="changeSearchInput()">Go!</button>
       </span>
     </div><!-- /input-group -->
+    
+    <ul>
+        <li ng-repeat="keyword in keywords">{{ keyword.type }} {{ keyword.text }} <a ng-click="removeKeyord(keyword)">X</a></li>
+    </ul>
+      
+    <br />
+    <div class="row text-center">
+        <input type="checkbox" id="type-free" ng-model="search.free" /> <label for="type-free" translate>Свободни зали</label>
+<!--
+        <input type="radio" id="type-everything" ng-model="search.type" value="0" /> <label for="type-everything" translate>Everything</label>
+        <input type="radio" id="type-room" ng-model="search.type" value="1" /> <label for="type-room" translate>Room</label>
+        <input type="radio" id="type-teacher" ng-model="search.type" value="2" /> <label for="type-teacher" translate>Teacher</label>
+        <input type="radio" id="type-group" ng-model="search.type" value="3" /> <label for="type-group" translate>Group</label>
+-->
+        
+    </div>
+    <div class="row" ng-show="search.free">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Филтрирай свободни стаи</h3>
+          </div>
+          <div class="panel-body">
+            <div class="col-sm-4">
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Дата</h3>
+                  </div>
+                  <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-11">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <p class="input-group">
+                                      <input type="text" class="form-control" ng-model="fromDate" is-open="opened" min="minDate"ng-required="true" close-text="Close" />
+                                      <span class="input-group-btn">
+                                        <button class="btn btn-default" ng-click="openDatepicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                      </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">От час</h3>
+                  </div>
+                  <div class="panel-body text-center">
+                    <div ng-model="fromDate" ng-change="changed()" style="display:inline-block;">
+                        <timepicker hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">До час</h3>
+                  </div>
+                  <div class="panel-body text-center">
+                    <div ng-model="toDate" class="center-block" ng-change="changed()" style="display:inline-block;">
+                        <timepicker hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+                    </div> 
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+    </div>
+      
   </div><!-- /.col-lg-6 -->
 </div>
 
-<br />
-<input type="radio" ng-model="search.type" value="0" /> <span translate>Everything</span>
-<input type="radio" ng-model="search.type" value="1" /> <span translate>Teacher</span>
-<input type="radio" ng-model="search.type" value="2" /> <span translate>Room</span>
-<input type="radio" ng-model="search.type" value="3" /> <span translate>Group</span>
-<br />
-{{ search.type  }} : {{ search.text }}
-<br />
-Results:
 <br />
 
 <div class="row">
@@ -30,12 +95,15 @@ Results:
                 <div class="clearfix"></div>
             </div>
             <div class="content">
-                <span class="text-right">Предмет:</span> {{ room.subject_id.short_name }}<br />
+                <br />
+                <span class="text-right">Предмет:</span> 
+                {{ (room.subject_id.full_name.length < 20) ? room.subject_id.full_name : room.subject_id.short_name }}
+                <br />
                 <span class="text-right">Лектор:</span> {{ room.teacher_id.name }}<br />
                 <br />
                 <span class="text-right">Дата:</span> {{ room.from_date | date : 'longDate' }} <br />
-                <span class="text-right">От:</span> {{ room.from_date  | date : 'shortTime' }}<br />
-                <span class="text-right">Да:</span> {{ room.to_date | date : 'shortTime' }}<br />
+                <span class="text-right">От:</span> {{ room.from_date  | date : 'HH:mm' }}<br />
+                <span class="text-right">До:</span> {{ room.to_date | date : 'HH:mm' }}<br />
             </div>
             <div class="clearfix"></div>
             <div class="status {{ (room.is_full_time) ? true : false }}"></div>

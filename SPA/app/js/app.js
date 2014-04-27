@@ -12,13 +12,14 @@ angular.module('roomTaken', [
   'roomTaken.controllers',
   'gettext',
   'restangular',
-  'fx.animations',
+  'ui.bootstrap',
+  //'fx.animations',
 //'omnibox'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: 'HomeCtrl'});
   $routeProvider.when('/search', {templateUrl: 'partials/search.html', controller: 'MyCtrl2'});
-  $routeProvider.otherwise({redirectTo: '/home'});
+  $routeProvider.otherwise({redirectTo: '/search'});
 }]);
 
 angular.module('roomTaken').config(function($httpProvider) {
