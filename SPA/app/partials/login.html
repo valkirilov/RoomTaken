@@ -1,9 +1,25 @@
-<form class="form-signin" role="form">
-    <h2 class="form-signin-heading">Please sign in</h2>
-    <input type="username" class="form-control" ng-model="username" placeholder="Your username" required autofocus>
-    <input type="password" class="form-control" ng-model="password" placeholder="Password" required>
-    <label class="checkbox">
-      <input type="checkbox" value="remember-me"> Remember me
-    </label>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="login()">Sign in</button>
-  </form>
+﻿	<link href="css/hide.css" rel="stylesheet">
+    <!--******************** NAVBAR ********************-->
+   
+    <!-- /.navbar-wrapper -->
+    <div id="top"></div>
+    <!-- ******************** HeaderWrap ********************-->
+    <div id="login">
+      <header class="clearfix">
+        <h1 id="stroke"><span>Вход.</span> Покажете ни кой сте.</h1>
+        <div class="container">
+          <div class="row">
+            <div class="span12">
+			<div class="searchbox">
+			
+              <input type="text" name="your-username" ng-model="username" placeholder="Потребителско име" class="cform-text" id="forminput" size="40" title="your username">
+			  <input type="password" name="your-pass" ng-model="password" placeholder="Парола" style="margin-top: 3px; width: 49%; height: 2.7em;" size="40" title="your pass">
+			  <br>
+              <input type="submit" value="LOGIN" class="cform-submit" style="margin-top: 3px;" ng-click="login()">
+			
+            </div>
+			</div>
+          </div>
+        </div>
+      </header>
+    </div>

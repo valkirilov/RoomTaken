@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en" ng-app="roomTaken">
 <head>
   <meta charset="utf-8">
@@ -10,15 +10,33 @@
     
   <meta name="author" content="Valentin Kirilov">
   <meta name="description" content="">
-    
+  <!-- Styles -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link rel='stylesheet' id='prettyphoto-css'  href="css/prettyPhoto.css" type='text/css' media='all'>
+  <link href="css/fontello.css" type="text/css" rel="stylesheet">
+  <!--[if lt IE 7]>
+          <link href="css/fontello-ie7.css" type="text/css" rel="stylesheet">  
+      <![endif]-->
+  <!-- Google Web fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Quattrocento:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Patua+One' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+  <style>
+  body {
+      padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+  }
+  </style>
+  <link href="css/bootstrap-responsive.css" rel="stylesheet">
   <!-- Bootstrap -->
-  <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!--<link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
     
   <!-- Custom styles for this template -->
-  <link href="styles/templates/starter-template.css" rel="stylesheet">
+  <!--<link href="styles/templates/starter-template.css" rel="stylesheet">-->
     
   <!-- Some styles that are comming from the omnibox.js -->
-  <link href="libs/omnibox/omnibox.css" rel="stylesheet" />
+  <!--<link href="libs/omnibox/omnibox.css" rel="stylesheet" />-->
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,27 +48,53 @@
 <body>
     
     <!-- Put the code from the template here -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
+   
+    <!--******************** NAVBAR ********************-->
+    <div class="navbar-wrapper">
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a>
+            <h1 class="brand"><a href="#top"><img src="img/logo.png" width="201" /></a></h1>
+            <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
+            <nav class="pull-right nav-collapse collapse">
+              <ul id="menu-main" class="nav">
+                <li><a title="portfolio" href="index.html" class="alyzarin">Начало</a></li>
+                <li ng-init="user.isLogged = false" ng-show="user.isLogged==false"><a title="services" href="#/login" class="emerald">Вход</a></li>
+				<li ng-init="user.isLogged = true" ng-show="user.isLogged"><a title="contact" href="#contact" class="emerald">{{user.user}}</a></li>
+                <li><a title="team" href="#team" class="petermannriver">Стаи</a></li>
+                <li><a title="contact" href="#contact" class="sunflower">Контакти</a></li>				
+              </ul>
+            </nav>
+          </div>
+          <!-- /.container -->
         </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#/view1">Home</a></li>
-            <li><a href="#/view2">About</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
+        <!-- /.navbar-inner -->
       </div>
+      <!-- /.navbar -->
     </div>
-
-    <div class="container" ng-controller="GlobalCtrl">
+    <!-- /.navbar-wrapper -->
+    <div id="top"></div>
+    <!-- ******************** HeaderWrap ********************-->
+    <div id="headerwrap">
+      <header class="clearfix">
+        <h1><span>Roomico!</span> Намерете перфектното място за Вас.</h1>
+        <div class="container">
+          <div class="row">
+            <div class="span12">
+			<div class="searchbox">
+              <input type="text" name="your-email" placeholder="@Учител, #Предмет, *Стая" class="cform-text" size="40" title="your email">
+              <input type="submit" value="GO" class="cform-submit">
+				
+            </div>
+			</div>
+          </div>
+        </div>
+      </header>
+    </div>
+	<!--END TEMPLATE-->
+    <div class="" ng-controller="GlobalCtrl">
 
       <div ng-view></div>
 
