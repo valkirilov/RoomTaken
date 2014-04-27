@@ -21,10 +21,8 @@
           <link href="css/fontello-ie7.css" type="text/css" rel="stylesheet">  
       <![endif]-->
   <!-- Google Web fonts -->
-  <link href='http://fonts.googleapis.com/css?family=Quattrocento:400,700' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Patua+One' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
   <style>
   body {
       padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -95,7 +93,7 @@
                 </div><!-- /input-group -->
 				<div class="center-block">
                 <ul id="autocorrect" class="searchbox">
-                    <li ng-repeat="keyword in keywords">{{ keyword.type }} {{ keyword.text }} <a ng-click="removeKeyord(keyword)" class="close"> &times;</a></li>
+                    <li ng-repeat="keyword in keywords"> <p style="float: left" >{{ keyword.type }} {{ keyword.text }}</p> <a ng-click="removeKeyord(keyword)" class="close" style="float:right"> &times;</a><div style="clear:both"></div></li>
                 </ul>
                 </div>
                 <div class="row text-center" id="radio">

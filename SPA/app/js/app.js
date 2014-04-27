@@ -37,7 +37,7 @@ angular.module('roomTaken').config(function($httpProvider) {
 
 
 angular.module('roomTaken').constant('constants', {
-    "serverAddress": "http://10.0.11.20:8000/",
+    "serverAddress": "http://localhost:8000/",
     "loginSuccess": "You are logged now ^_^",
     "loginFail": "Login failed :(",
     "registerSuccess": "Registration completed",

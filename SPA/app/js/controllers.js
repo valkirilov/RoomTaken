@@ -220,7 +220,7 @@ angular.module('roomTaken.controllers', [])
         }, function(error) {
             console.log("Error");
             console.log(error);
-//                $scope.schedule = null;
+            $scope.schedule = null;
             $rootScope.handleError("Няма резултати от вашето търсене.");
     
         });
@@ -243,7 +243,10 @@ angular.module('roomTaken.controllers', [])
             $rootScope.handleSuccess("Стаята е резервирана успешно.");
         }, function(error) {
             console.log(error);
-            $rootScope.handleError("Настъпи грешка при резервирането.");
+            if (error.status === 403)
+                $rootScope.handleError("Нямате права за резервиране на стая.");
+            else
+                $rootScope.handleError("Настъпи грешка при резервирането.");
         });
         
     };

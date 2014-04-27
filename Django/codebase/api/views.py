@@ -51,6 +51,8 @@ class FreeRooms(APIView):
             raise Http404
 
     def post(self, request, format=None):
+        request.DATA['subject_id'] = 9
+        request.DATA['teacher_id'] = 605
         serializer = ScheduleSerializerIn(data=request.DATA)
         if serializer.is_valid():
             serializer.save()

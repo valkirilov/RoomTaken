@@ -100,7 +100,7 @@ class Rooms(models.Model):
         verbose_name_plural = _(u'Стаи')
         
     def __unicode__(self):
-        return _(u'%s' % self.name)
+        return _(u'%s' % self.number)
         
 class Schedule(models.Model):
     room_id = models.ForeignKey(u'Rooms')
@@ -203,7 +203,14 @@ class Schedule(models.Model):
         from_date = datetime.strptime(get_request['from_date'], "%Y-%m-%d %H:%M:%S")
         to_date = datetime.strptime(get_request['to_date'], "%Y-%m-%d %H:%M:%S")
 
-        get_all_busy_room = cls.objects.filter(from_date__gte=from_date, to_date__lte=to_date)
+        get_all_busy_room = cls.objects.filter(
+                                               (Q(from_date__lte=from_date) & \
+                                                Q(to_date__gt=from_date)) | \
+                                               (Q(from_date__lte=to_date) & 
+                                                Q(to_date__gt=to_date)))
+        
+        print get_all_busy_room.query
+        
         day_filter = Q()
         for x in get_all_busy_room:
             day_filter = day_filter & ~Q(id=(x.room_id).id)
