@@ -113,8 +113,9 @@
 	<!--END TEMPLATE-->
     
 
+      
       <div ng-view></div>
-      <div class="message {$ message.vissible $} {$ message.type $}">{$ message.text $}</div>
+      <div class="message {{ message.visible }} {{ message.type }}">{{ message.text }}</div>
 
     </div><!-- /.container -->
     
