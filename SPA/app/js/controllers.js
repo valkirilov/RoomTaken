@@ -83,8 +83,8 @@ angular.module('roomTaken.controllers', [])
 .controller('HomeCtrl', ['$scope', function($scope) {
 
 }])
-.controller('MyCtrl2', ['$rootScope', '$scope', 'ResourceService', 'AuthService', '$location', 'constants', 
-                        function($rootScope, $scope, ResourceService, AuthService, $location, constants) {
+.controller('MyCtrl2', ['$rootScope', '$scope', 'ResourceService', 'AuthService', '$location', 'constants', '$timeout', 
+                        function($rootScope, $scope, ResourceService, AuthService, $location, constants, $timeout) {
     
     $rootScope.search = { text: "", type: "schedule" };
     
@@ -197,6 +197,8 @@ angular.module('roomTaken.controllers', [])
     };
     
     $scope.makeSearch = function() {
+        $rootScope.search.searched = true;
+        
         var response;
         console.log($rootScope.search.free);
         if ($rootScope.search.type === 'free') {
@@ -216,6 +218,13 @@ angular.module('roomTaken.controllers', [])
             console.log(success);
             $scope.schedule = success;
             $rootScope.handleSuccess("Успешно търсене");
+            
+            $timeout(function() {
+                $('body').animate({
+                scrollTop: "500px"
+            }, 1000);
+            }, 1000);
+            
 
         }, function(error) {
             console.log("Error");
