@@ -174,4 +174,16 @@ angular.module('roomTaken.controllers', [])
     
 
     $scope.init();
+}])
+.controller('LogoutCtrl', ['$rootScope', '$scope', '$location', '$timeout', 'AuthService', 
+                           function($rootScope, $scope, $location, $timeout, AuthService) {
+    
+    $scope.logout = function() {
+        console.log('init');
+        AuthService.logout();
+        $timeout($location.path('index'), 1000);
+    };
+                               
+    //$scope.init();
+
 }]);

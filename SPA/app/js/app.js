@@ -20,6 +20,7 @@ config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: 'HomeCtrl'});
     $routeProvider.when('/search', {templateUrl: 'partials/search.html', controller: 'MyCtrl2'});
     $routeProvider.when('/login', {templateUrl: 'partials/login.html', controller: 'MyCtrl2'});
+    $routeProvider.when('/logout', {templateUrl: 'partials/logout.html', controller: 'LogoutCtrl'});
     $routeProvider.otherwise({redirectTo: '/search'});
 }]);
 
