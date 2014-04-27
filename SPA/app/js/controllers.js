@@ -26,6 +26,7 @@ angular.module('roomTaken.controllers', [])
             // Logout and redirect to home
             AuthService.logout();
             $rootScope.user.isLogged = false;
+            $rootScope.user.token = null;
 
             //$rootScope.handleMessage(constants.logout);
             $timeout(function() {
@@ -35,8 +36,10 @@ angular.module('roomTaken.controllers', [])
     });
                                
     $rootScope.logout = function() {
+        $rootScope.user.token = null;
+        
         AuthService.logout();
-        $rootScope.handleMessage('Излязохте успешно :(');
+        $rootScope.handleSuccess('Излязохте успешно :(');
         $timeout(function() {
             $location.path('index')
         }, 1000);
