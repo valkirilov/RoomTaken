@@ -14,6 +14,11 @@ function($http, $cookieStore, Restangular, $q, constants) {
                 //getUserDetails(username)]);
        ]);
        
+       promises.then(function(success) {
+           console.log(success);
+           save(username, success[0].data.token);
+       });
+       
        return promises;
    };
     
@@ -37,20 +42,6 @@ function($http, $cookieStore, Restangular, $q, constants) {
 
         return deferred.promise;
     }
-    function getUserDetails(username) {
-        console.log('Getting user details');
-        var deferred = $q.defer();
-       
-        var conditions = generateUrlWithParams({ "username":username });
-        var promise = Restangular.one('users/'+conditions).get().then(function(success) {
-            deferred.resolve(success);
-       }, function(error) {
-           console.error('UserService.js: Error in getting user details.');
-           deferred.reject(error);
-       });
-        
-       return deferred.promise;
-   };
    
    var logout = function() {
        // First clear the user values
@@ -58,11 +49,6 @@ function($http, $cookieStore, Restangular, $q, constants) {
        user.username = null;
        user.token = null;
        user.isLogged = false;
-       
-       delete user.id;
-       delete user.url;
-       delete user.email;
-       delete user.groups;
        
        console.log(user);
        
@@ -72,10 +58,10 @@ function($http, $cookieStore, Restangular, $q, constants) {
    }
    
    /* This is inner function which is used to store info about the user */
-   var save = function(userDetails, token) {
+   var save = function(username, token) {
        // Save them in the service
        console.log('Saving user with token' + token);
-       user = userDetails[0];
+       user.username = username;
        user.token = token;
        user.isLogged = true;
        
@@ -133,6 +119,5 @@ function($http, $cookieStore, Restangular, $q, constants) {
    // Public getters
    this.isLogged = isLogged;
    this.getUser = getUser;
-   this.getUserDetails = getUserDetails;
    this.refreshUser = refreshUser;
 }]);

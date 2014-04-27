@@ -11,7 +11,8 @@ angular.module('roomTaken.controllers', [])
 .controller('HomeCtrl', ['$scope', function($scope) {
 
 }])
-.controller('MyCtrl2', ['$rootScope', '$scope', 'ResourceService', 'AuthService', function($rootScope, $scope, ResourceService, AuthService) {
+.controller('MyCtrl2', ['$rootScope', '$scope', 'ResourceService', 'AuthService', '$location', 
+                        function($rootScope, $scope, ResourceService, AuthService, $location) {
     
     $scope.search = { text: "", type: "" };
     
@@ -56,7 +57,7 @@ angular.module('roomTaken.controllers', [])
             console.log(suceess);
 
             //AuthService.save(suceess[1], suceess[0].data.token);
-            $rootScope.handleSuccess(constants.loginSuccess);
+            //$rootScope.handleSuccess(constants.loginSuccess);
             $scope.successfullLogin();
         }, function(error) {
             console.log(error);
@@ -73,6 +74,10 @@ angular.module('roomTaken.controllers', [])
         console.log(datepickerOption);
         $scope.datepickers[datepickerOption] = true;
         console.log($scope.datepickers);
+    };
+    
+    $scope.successfullLogin = function() {
+        $location.path('index');    
     };
     
     $scope.removeKeyord = function(keyword) {
