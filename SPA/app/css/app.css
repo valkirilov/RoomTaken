@@ -146,10 +146,10 @@
     transform:          scale(0.3);
     
     
-    -webkit-transition: 0.5s linear all;
-    -moz-transition:    0.5s linear all;
-    -o-transition:      0.5s linear all;
-    transition:         0.5s linear all;
+    -webkit-transition: 1.5s linear all;
+    -moz-transition:    1.5s linear all;
+    -o-transition:      1.5s linear all;
+    transition:         1.5s linear all;
 }
  
 .phone-listing.ng-enter,

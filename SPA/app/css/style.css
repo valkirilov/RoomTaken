@@ -28,7 +28,7 @@ CONTENTS:
 
 @font-face{
 font-family: Patua One;
-    src=url(app/css/font/PatuaOne.woff);
+    src: url(fonts/PatuaOne.woff);
 }
 div, article, section, header, footer, nav, li {
 	position:relative;
