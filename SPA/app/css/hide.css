@@ -1,0 +1,169 @@
+#headerwrap{
+display: none;
+}
+header{
+position: relative;
+}	
+#login {
+	width: 100%;
+	background: url(../img/school-room_blur.jpg) #0b333f no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	;
+	min-height: 600px;
+	margin-top: -60px;
+	padding-top:160px;
+	text-align:center;
+}
+@font-face {
+    font-family: "Orpheus";
+    src: url(../css/fonts/Orpheus.otf) format("truetype");
+}
+#login h1 {
+	color: #FFFFFF;
+	font-family: Orpheus !important;
+	font-size: 4em;
+	font-weight: 400;
+	margin: 1em 0;
+	    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;  
+}
+#login h1 span
+{
+	text-shadow: none;
+}
+#login h2 {
+	color: #FFFFFF;
+	font-family: 'Open Sans', sans serif;
+	font-size: 2em;
+	font-weight: normal;
+	margin: 0.5em 0;
+	text-shadow: 1px 1px 1px #333333;
+}
+#login h1 span {
+	color:#f0bf00;
+}
+#login input[type=text]  {
+	background: #FFFFFF;
+	font-family: 'Open Sans', sans serif;
+	font-size: 1.3125em;
+	border: 0;
+	border-radius:0 !important;
+	text-align: left;
+	vertical-align: middle;
+	margin-bottom:0 !important;
+	min-width: 290px !important;
+}
+#login input[type=password] {
+	background: #FFFFFF;
+	font-family: 'Open Sans', sans serif;
+	font-size: 1.3125em;
+	border: 0;
+	border-radius:0 !important;
+	text-align: left;
+	vertical-align: middle;
+	margin-bottom:0 !important;
+	min-width: 290px !important;
+}
+#login input[type=text]:focus, #login input[type=password]:focus {
+	background: #43413e;
+	color: #eff1ef;
+	transition: background 0.25 ease-in;
+	-moz-transition: background 0.25 ease-in;
+	-webkit-transition: background 0.25 ease-in;
+}
+#login input[type=text], #login input[type=password] {
+	height: 2.9em;
+	width:50%;
+	border-radius: none;
+}
+#login input[type=submit] {
+	font-family: 'Patua One', cursive;
+	color: #fff;
+	width: 100px;
+	height: 2.9em;
+	font-size: 1.3125em; /* 21px */
+	padding:0.5em;
+	letter-spacing: 0.05em;
+	margin: 0;
+	border: 0;
+	text-transform: none;
+	background: #f0bf00 !important;
+	border-radius: none;
+	-moz-border-radius: none;
+	-webkit-border-radius: none;
+}
+#login input[type=submit]:hover, #login input[type=submit]:active {
+	background: #43413e !important;
+}
+ @media (min-width: 768px) and (max-width: 979px) {
+ #login {
+ padding-top:0;
+}
+    /* Smaller screens ----------- */
+	@media (max-width : 480px) {
+ #login {
+ padding-top:0;
+}
+ #login h1 {
+ font-size:2em;
+}
+ #login h2 {
+ font-size:1em;
+}
+ #login input[type="text"], #login input[type="password"] {
+ width: 100%;
+ margin-top: 10px;
+}
+ #login input[type="submit"] {
+ margin-top:1em;
+ width: 100px !important;
+}
+ .container {
+border: 1px solid yellow;
+}
+
+div, article, section, header, footer, nav, li {
+	position:relative;
+}
+.group:after {
+	display:block;
+	height:0;
+	clear:both;
+	content:".";
+	visibility:hidden; /* For clearing */
+}
+body {
+	background:#f0f0f0;
+	color: #312A1E;
+	font-size: 100%;
+	font-family: 'Quattrocento', serif;
+}
+::-moz-selection {
+background:#f0bf00;
+color:#333;
+}
+::selection {
+background:#f0bf00;
+color:#333;
+}
+/*---------- FORMS ----------*/
+
+input, button, select, textarea {
+	font-family: 'Quattrocento', serif;
+}
+.forminput{
+margin-top: 15px;
+}
+#stroke{
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000; 
+}
