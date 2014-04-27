@@ -56,31 +56,33 @@
 .room .header .name {
     float: left;
     padding: 10px 20px;
-	color: #f0bf00 !important;
+	color: #ffffff !important;
 	font-family: Verdana;
 }
 .room .header .number {
-    background: #eec500;
+    background: #27AE60;
     border-left: 1px solid #dbdbdb;
-    color: #FFFFFF;
+    color: #fff;
     padding: 10px 20px;
     
     float: right;
     font-weight: bold;
 }
-.room .header .number .free {
-	background: #27AE60 ;
+.room .header .number.partial {
+	background: #eec500 ;
+	color: #000;
 }
-.room .header .number .taken{
+.room .header .number.taken{
 	background: #c0392b;
+	color: #FFFFFF;
 }
 .room .status {
     height: 8px;
 }
-.room .status.true {
+.room .status.taken {
     background: #c0392b;
 }
-.room .status.false {
+.room .status.partial {
     background: #eec500;
 }
 .room .status.free {
