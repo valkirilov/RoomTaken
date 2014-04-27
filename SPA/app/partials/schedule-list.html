@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 center-block"  style="float: none; margin: auto; padding: 10px;">
+        <div ng-repeat="room in schedule" class="room fx-fade-up fx-easing-bounce fx-speed-800">
+            <div class="header">
+                <div class="name">{{ room.room_id.name }}</div>
+                <div class="number">{{ room.room_id.number }}</div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="content">
+                <br />
+                <span class="text-right">Предмет:</span> 
+                {{ (room.subject_id.full_name.length < 20) ? room.subject_id.full_name : room.subject_id.short_name }}
+                <br />
+                <span class="text-right">Лектор:</span> {{ room.teacher_id.name }}<br />
+                <br />
+                <span class="text-right">Дата:</span> {{ room.from_date | date : 'longDate' }} <br />
+                <span class="text-right">От:</span> {{ room.from_date  | date : 'longDate'  }}<br />
+                <span class="text-right">До:</span> {{ room.to_date | date : 'HH:mm' }}<br />
+            </div>
+            <div class="clearfix"></div>
+            <div class="status {{ (room.is_full_time) ? true : false }}"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+</div>

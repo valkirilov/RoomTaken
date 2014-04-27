@@ -14,7 +14,10 @@
       
     <br />
     <div class="row text-center">
-        <input type="checkbox" id="type-free" ng-model="search.free" /> <label for="type-free" translate>Свободни зали</label>
+        <input type="radio" id="type-free" class="active" name="search-type" ng-model="search.type"  value="schedule" checked="checked" /> <label for="type-schedule" translate>Разписание на зали</label>
+        <input type="radio" id="type-free" name="search-type" ng-model="search.type" value="free" /> <label for="type-free" translate>Свободни зали</label>
+        
+        {{ search.type }}
 <!--
         <input type="radio" id="type-everything" ng-model="search.type" value="0" /> <label for="type-everything" translate>Everything</label>
         <input type="radio" id="type-room" ng-model="search.type" value="1" /> <label for="type-room" translate>Room</label>
@@ -24,7 +27,7 @@
         
     </div>
       
-    <div class="row" ng-show="search.free">
+    <div class="row" ng-show="search.type === free">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">Филтрирай свободни стаи</h3>
@@ -99,99 +102,11 @@
         </div>
     
     </div>
-      
-    <div class="row" ng-show="search.free">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Филтрирай свободни стаи</h3>
-          </div>
-          <div class="panel-body">
-            <div class="col-sm-6">
-              <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">Дата</h3>
-                  </div>
-                  <div class="panel-body">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <p class="input-group">
-                                        
-                                        <input type="text" class="form-control" datepicker-popup="{{format}}" 
-                                               ng-model="fromDate" is-open="opened" min="minDate" max="'2015-06-22'" 
-                                               date-disabled="disabled(date, mode)" 
-                                               ng-required="true" close-text="Close" />
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" ng-click="openDatepicker($event)">
-                                                <i class="glyphicon glyphicon-calendar"></i>
-                                            </button>
-                                        </span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                  </div>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">От час</h3>
-                  </div>
-                  <div class="panel-body text-center">
-                    <div ng-model="fromDate" ng-change="changed()" style="display:inline-block;">
-                        <timepicker hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
-                    </div>
-                  </div>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">До час</h3>
-                  </div>
-                  <div class="panel-body text-center">
-                    <div ng-model="toDate" class="center-block" ng-change="changed()" style="display:inline-block;">
-                        <timepicker hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
-                    </div> 
-                  </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    
-    </div>
-      
+        
   </div><!-- /.col-lg-6 -->
 </div>
 
 <br />
 
-<div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 center-block"  style="float: none; margin: auto; padding: 10px;">
-        <div ng-repeat="room in schedule" class="room fx-fade-up fx-easing-bounce fx-speed-800">
-            <div class="header">
-                <div class="name">{{ room.room_id.name }}</div>
-                <div class="number">{{ room.room_id.number }}</div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="content">
-                <br />
-                <span class="text-right">Предмет:</span> 
-                {{ (room.subject_id.full_name.length < 20) ? room.subject_id.full_name : room.subject_id.short_name }}
-                <br />
-                <span class="text-right">Лектор:</span> {{ room.teacher_id.name }}<br />
-                <br />
-                <span class="text-right">Дата:</span> {{ room.from_date | date : 'longDate' }} <br />
-                <span class="text-right">От:</span> {{ room.from_date  | date : 'longDate'  }}<br />
-                <span class="text-right">До:</span> {{ room.to_date | date : 'HH:mm' }}<br />
-            </div>
-            <div class="clearfix"></div>
-            <div class="status {{ (room.is_full_time) ? true : false }}"></div>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-    <div class="clearfix"></div>
-</div>
+<ng-include src="'partials/schedule-list.html'" ng-show="search.type === 'schedule'"></ng-include>
+<ng-include src="'partials/free-rooms-list.html'" ng-show="search.type === 'free'"></ng-include>

@@ -1,4 +1,4 @@
-giftyCardsServices.service('AuthService', ['$http', '$cookieStore', 'Restangular', '$q', 'constants',
+appServices.service('AuthService', ['$http', '$cookieStore', 'Restangular', '$q', 'constants',
 function($http, $cookieStore, Restangular, $q, constants) {
     
     var user = $cookieStore.get('user') || { isLogged: false };
@@ -10,19 +10,20 @@ function($http, $cookieStore, Restangular, $q, constants) {
        // Send a HTTP request to check is the user exist and to get it's token
 
        var promises = $q.all([
-                chechCredentials(username, password),
-                getUserDetails(username)]);
+                checkCredentials(username, password),
+                //getUserDetails(username)]);
+       ]);
        
        return promises;
    };
     
-    function chechCredentials(username, password) {
+    function checkCredentials(username, password) {
         // Send a HTTP request to check is the user exist and to get it's token
         var deferred = $q.defer();
         
         var promise = $http({
            method: 'POST',
-           url: constants.serverAddress+'api-token-auth/',
+           url: constants.serverAddress+'api/api-token-auth/',
            data: {
                username: username,
                password: password
@@ -104,14 +105,27 @@ function($http, $cookieStore, Restangular, $q, constants) {
        return user;
    };
    
-   var getToken = function() {
-   };
+   function generateUrlWithParams(params) {
+        var url = "";   
+        for (var param in params) {
+            if (params[param] === undefined)
+                continue;
+
+            if (url === "")
+                url = "?";
+            else 
+                url += "&";
+
+            url += param + "=" + params[param];
+        }
+
+        return url;
+    }
    var isLogged = function() {
        return user.isLogged;
    }
    
    this.user = user;
-   this.register = register;
    this.login = login;
    this.logout = logout;
    this.save = save;

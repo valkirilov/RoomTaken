@@ -11,7 +11,7 @@ angular.module('roomTaken.controllers', [])
 .controller('HomeCtrl', ['$scope', function($scope) {
 
 }])
-.controller('MyCtrl2', ['$scope', 'ResourceService', function($scope, ResourceService) {
+.controller('MyCtrl2', ['$rootScope', '$scope', 'ResourceService', 'AuthService', function($rootScope, $scope, ResourceService, AuthService) {
     
     $scope.search = { text: "", type: "" };
     
@@ -46,6 +46,23 @@ angular.module('roomTaken.controllers', [])
 //            console.log(error);
 //        });
         
+    };
+    
+    $scope.login = function(username, password) {
+        console.log('Login now');
+
+        AuthService.login($scope.username, $scope.password).then(function(suceess) {
+            console.log('Authorised and details are here');
+            console.log(suceess);
+
+            //AuthService.save(suceess[1], suceess[0].data.token);
+            $rootScope.handleSuccess(constants.loginSuccess);
+            $scope.successfullLogin();
+        }, function(error) {
+            console.log(error);
+            $scope.errorMessage = error.data;
+            $rootScope.handleError(constants.loginFail);
+       });
     };
     
     $scope.openDatepicker = function($event, datepickerOption) {
