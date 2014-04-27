@@ -126,7 +126,7 @@ angular.module('roomTaken.controllers', [])
     $scope.makeSearch = function() {
         var response;
         console.log($scope.search.free);
-        if ($scope.search.free) {
+        if ($scope.search.type === 'free') {
             var keywords = {
                 "from_date": $scope.fromDate,
                 "to_date": $scope.toDate,
@@ -134,7 +134,7 @@ angular.module('roomTaken.controllers', [])
             console.log(keywords);
             response = ResourceService.getFreeRooms(keywords);
         }
-        else {
+        else if ($scope.search.type === 'schedule') {
             response = ResourceService.getSchedule($scope.keywords);
         }
         
@@ -150,6 +150,25 @@ angular.module('roomTaken.controllers', [])
         });
     };
     
+    $scope.reserveRoom = function(room) {
+        console.log("Resrerve");
+        console.log(room);
+        
+        var args = {
+            "room": room, 
+            "from_date": $scope.fromDate,
+            "to_date": $scope.toDate
+        };
+        
+        ResourceService.reserveRoom(args).then(function(success) {
+            console.log(success);
+            $scope.schedule = null;
+            // add message for saved room
+        }, function(error) {
+            console.log(error);
+        });
+        
+    };
 
 
     
