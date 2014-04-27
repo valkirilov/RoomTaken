@@ -66,8 +66,8 @@
                 <li><a title="team" href="#team" class="emerald ">Стаи</a></li>
                 <li><a title="contact" href="#contact" class="petermannriver">Контакти</a></li>				
                   
-                <li ng-show="!user.isLogged"><a title="Вход" href="#/login" class="sunflower">Вход</a></li>
-				<li ng-show="user.isLogged"><a title="Излез" href="#contact" class="sunflower">{{user.username}}</a></li>
+                <li ng-show="user.isLogged == false"><a title="Вход" href="#/login" class="sunflower">Вход</a></li>
+				<li ng-show="user.isLogged"><a title="Излез" ng-click="logout()" class="sunflower">{{ user.username }}</a></li>
               </ul>
             </nav>
           </div>

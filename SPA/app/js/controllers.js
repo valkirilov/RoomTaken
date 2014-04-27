@@ -9,9 +9,9 @@ angular.module('roomTaken.controllers', [])
     
     $rootScope.message = { text: "", visible: false, type: 'schedule' };
         
-    $scope.$on('$viewContentLoaded', function(){
-        console.log('*** *** *** *** *** *** *** *** *** *** *** ***');
-        console.log('View is changed to ' + $location.path());
+    $rootScope.$on('$viewContentLoaded', function(){
+        //console.log('*** *** *** *** *** *** *** *** *** *** *** ***');
+        //console.log('View is changed to ' + $location.path());
         
         AuthService.user = $cookieStore.get('user') || { isLogged: false };
         $rootScope.user = AuthService.user;            
@@ -33,6 +33,14 @@ angular.module('roomTaken.controllers', [])
             }, 1500);
         }
     });
+                               
+    $rootScope.logout = function() {
+        AuthService.logout();
+        $rootScope.handleMessage('Излязохте успешно :(');
+        $timeout(function() {
+            $location.path('index')
+        }, 1000);
+    };
                                
    $rootScope.handleMessage = function(info) {
         $rootScope.message.text = info;
@@ -243,11 +251,7 @@ angular.module('roomTaken.controllers', [])
 .controller('LogoutCtrl', ['$rootScope', '$scope', '$location', '$timeout', 'AuthService', 
                            function($rootScope, $scope, $location, $timeout, AuthService) {
     
-    $scope.logout = function() {
-        console.log('init');
-        AuthService.logout();
-        $timeout($location.path('index'), 1000);
-    };
+    
                                
     //$scope.init();
 

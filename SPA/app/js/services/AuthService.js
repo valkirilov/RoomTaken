@@ -50,8 +50,6 @@ function($http, $cookieStore, Restangular, $q, constants) {
        user.token = null;
        user.isLogged = false;
        
-       console.log(user);
-       
        // And the remove it from the cookies
        $cookieStore.put('user', user);
        //return user;
