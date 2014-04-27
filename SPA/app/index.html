@@ -21,8 +21,12 @@
           <link href="css/fontello-ie7.css" type="text/css" rel="stylesheet">  
       <![endif]-->
   <!-- Google Web fonts -->
+<<<<<<< HEAD
   <link href='http://fonts.googleapis.com/css?family=Patua+One' rel='stylesheet' type='text/css'>
 
+=======
+  <!--<link href='http://fonts.googleapis.com/css?family=Patua+One' rel='stylesheet' type='text/css'>-->
+>>>>>>> bb5e0390962a68889dc911ee8c6d5fec3bf73815
   <style>
   body {
       padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -80,7 +84,7 @@
     <!-- /.navbar-wrapper -->
     <div id="top"></div>
     <!-- ******************** HeaderWrap ********************-->
-    <div id="headerwrap">
+    <div id="headerwrap" class="{{ (search.searched) ? 'header-min' : '' }}">
       <header>
         <h1><span>Roomico!</span> Намерете перфектното място за Вас.</h1>
         <div class="container">
@@ -160,7 +164,11 @@
   $(document).ready(function(){
     $(".cform-submit").click(function(){
       console.log("scroll");
-      window.scrollBy(0,1000);
+      //window.scrollBy(0,1000);
+//        $('body').animate({
+//            scrollTop: "500px"
+//        }, 800);
+    
     });          
   });
 </script>     

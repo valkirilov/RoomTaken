@@ -136,3 +136,50 @@
     opacity: 1;
     top: 50px;
 }
+
+.phone-listing.ng-enter,
+.phone-listing.ng-leave,
+.phone-listing.ng-move {
+    -webkit-transform:  scale(0.3);
+    -moz-transform:     scale(0.3);
+    -o-transform:       scale(0.3);
+    transform:          scale(0.3);
+    
+    
+    -webkit-transition: 1.5s linear all;
+    -moz-transition:    1.5s linear all;
+    -o-transition:      1.5s linear all;
+    transition:         1.5s linear all;
+}
+ 
+.phone-listing.ng-enter,
+.phone-listing.ng-move {
+  opacity: 0;
+}
+ 
+.phone-listing.ng-move.ng-move-active,
+.phone-listing.ng-enter.ng-enter-active {
+    -webkit-transform:  translateX(0px) scale(1);
+    -moz-transform:     translateX(0px) scale(1);
+    -o-transform:       translateX(0px) scale(1);
+    transform:          translateX(0px) scale(1);
+    
+  opacity: 1;
+}
+ 
+.phone-listing.ng-leave {
+  opacity: 1;
+  overflow: hidden;
+}
+ 
+.phone-listing.ng-leave.ng-leave-active {
+  opacity: 0;
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.header-min {
+    height: 400px !important;
+    min-height: 400px !important;
+}

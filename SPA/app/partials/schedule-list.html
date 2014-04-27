@@ -1,6 +1,6 @@
-<div class="row" style="margin: auto; float: none;">
+<div class="row" style="margin: auto; float: none; min-height: 1600px !important;">
     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 center-block"  style="float: none; margin: auto; padding: 10px;">
-        <div ng-repeat="room in schedule" class="room fx-fade-up fx-easing-bounce fx-speed-800">
+        <div ng-repeat="room in schedule track by $index" class="room phone-listing">
             <div class="header">
                 <div class="name">{{ room.room_id.name }}</div>
                 <div class="number {{ (room.is_full_time) ? 'taken' : 'partial' }}">{{ room.room_id.number }}</div>

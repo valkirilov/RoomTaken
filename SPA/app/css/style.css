@@ -26,6 +26,10 @@ CONTENTS:
 01 Sensible defaults ----------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------- */
 
+@font-face{
+font-family: Patua One;
+    src: url(fonts/PatuaOne.woff);
+}
 div, article, section, header, footer, nav, li {
 	position:relative;
 }

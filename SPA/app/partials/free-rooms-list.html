@@ -1,14 +1,20 @@
 <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 center-block"  style="float: none; margin: auto; padding: 10px;">
-        <div ng-repeat="room in schedule | filterSeats : filter.seats" class="room fx-fade-up fx-easing-bounce fx-speed-800">
+        <div ng-repeat="room in schedule | filterSeats : filter.seats" class="room phone-listing">
             <div class="header">
                 <div class="name">{{ room.name }}</div>
                 <div class="number">{{ room.number }}</div>
                 <div class="clearfix"></div>
             </div>
             <div class="content">
+<<<<<<< HEAD
                 <br />
                 <span class="text-right">Вместимост:</span> {{ (filter.seats) ? filter.seats+' /' : ''  }} {{ room.seats }} места<br />
+=======
+                
+                <span class="text-right">Вместимост: </span> {{ (filter.seats) ? filter.seats+' /' : ''  }} {{ room.seats }} места<br />
+                
+>>>>>>> bb5e0390962a68889dc911ee8c6d5fec3bf73815
                 <br />
                 <img src="img/room.jpg" width="180" class="img img-responsive" style="margin-left: 35px; padding: auto; text-align: center;" />
                 <br />
