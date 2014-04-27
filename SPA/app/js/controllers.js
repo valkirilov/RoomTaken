@@ -18,6 +18,11 @@ angular.module('roomTaken.controllers', [])
     $scope.schedule = null;
     $scope.keywords = {};
     
+    $scope.datepickers = {
+        "isOpenedFromDate": false,
+        "isOpenedToDate": false
+    };
+    
     $scope.minDate = new Date();
     $scope.fromDate = new Date();
     $scope.toDate = new Date();
@@ -43,12 +48,14 @@ angular.module('roomTaken.controllers', [])
         
     };
     
-    $scope.openDatepicker = function($event) {
+    $scope.openDatepicker = function($event, datepickerOption) {
         
         $event.preventDefault();
         $event.stopPropagation();
-
-        $scope.opened = true;
+        console.log($scope.datepickers);
+        console.log(datepickerOption);
+        $scope.datepickers[datepickerOption] = true;
+        console.log($scope.datepickers);
     };
     
     $scope.removeKeyord = function(keyword) {

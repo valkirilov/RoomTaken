@@ -39,6 +39,16 @@ function(Restangular, $http, constants, $filter) {
             }
         };
         
+//        keywords = {
+//            "from_date": {
+//                "text": parseInt(keywords['from_date'].getTime() / 1000)
+//            },
+//            "to_date": {
+//                "text": parseInt(keywords['to_date'].getTime() / 1000)
+//            }
+//        };
+        
+        
         console.log(keywords);
         var conditions = generateUrlWithParams(keywords);
         console.log(conditions);
