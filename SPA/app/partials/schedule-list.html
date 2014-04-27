@@ -14,7 +14,7 @@
                 <span class="text-right">Лектор:</span> {{ room.teacher_id.name }}<br />
                 <br />
                 <span class="text-right">Дата:</span> {{ room.from_date | date : 'longDate' }} <br />
-                <span class="text-right">От:</span> {{ room.from_date  | date : 'longDate'  }}<br />
+                <span class="text-right">От:</span> {{ room.from_date  | date : 'HH:mm'  }}<br />
                 <span class="text-right">До:</span> {{ room.to_date | date : 'HH:mm' }}<br />
             </div>
             <div class="clearfix"></div>
