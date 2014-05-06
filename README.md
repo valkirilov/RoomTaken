@@ -1,9 +1,14 @@
 RoomTaken
 =========
-
 HackFMI 3 project
 
-## Configurate Django
+Important
+=========
+We are moving the project to other repository (to be under our team name) so if you are interested in it you can find it here [https://github.com/Parchetata/Roomico](https://github.com/Parchetata/Roomico)
+
+Information bellow is old and outdated. Please go to the new repo.
+
+### Configurate Django
 How to configure Django in several steps
 
 * Install `virtualenv`
