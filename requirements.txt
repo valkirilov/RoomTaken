@@ -1,5 +1,5 @@
 MySQL-python==1.2.4
-Django==1.6.3
+Django==2.2.24
 djangorestframework
 south==0.8.3
 django-suit
